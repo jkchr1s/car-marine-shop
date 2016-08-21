@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVehicleModelsTable extends Migration
+class CreateVehicleNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,12 @@ class CreateVehicleModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_models', function (Blueprint $table) {
+        Schema::create('vehicle_notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('vehicle_make_id');
-            $table->string('model');
+            $table->integer('vehicle_id')->unsigned();
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
+            $table->string('username');
+            $table->string('note');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateVehicleModelsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('vehicle_models');
+        Schema::drop('vehicle_notes');
     }
 }

@@ -14,10 +14,14 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('customer_id');
-            $table->integer('vehicle_type_id');
-            $table->integer('vehicle_make_id');
-            $table->integer('vehicle_model_id');
+            $table->integer('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->integer('vehicle_type_id')->unsigned();
+            $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types');
+            $table->integer('vehicle_make_id')->unsigned();
+            $table->foreign('vehicle_make_id')->references('id')->on('vehicle_makes');
+            $table->integer('vehicle_model_id')->unsigned();
+            $table->foreign('vehicle_model_id')->references('id')->on('vehicle_models');
             $table->string('year');
             $table->timestamps();
         });

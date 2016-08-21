@@ -14,7 +14,8 @@ class CreateVehiclePartsTable extends Migration
     {
         Schema::create('vehicle_parts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('vehicle_id');
+            $table->integer('vehicle_id')->unsigned();
+            $table->foreign('vehicle_id')->references('id')->on('vehicles');
             $table->string('name');
             $table->string('description');
             $table->string('part_number');
