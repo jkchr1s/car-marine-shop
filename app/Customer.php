@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    protected $fillable = ['first_name', 'last_name', 'company', 'customer_type_id'];
+
+    /**
+     * Get the customer type associated with the customer
+     */
+    public function customer_type()
+    {
+        return $this->belongsTo('App\CustomerType', 'id');
+    }
+
     /**
      * Get the email records associated with the customer.
      */

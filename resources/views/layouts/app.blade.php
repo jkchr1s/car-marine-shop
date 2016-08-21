@@ -39,7 +39,7 @@
         <div class="navbar-collapse collapse navbar-inverse-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Take Me To
+                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Menu
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/home">My Dashboard</a></li>

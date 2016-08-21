@@ -23,3 +23,4 @@ rm -rf .composer
 docker start whitepeels
 docker exec whitepeels /usr/local/bin/php /home/app/artisan key:generate
 docker exec whitepeels /usr/local/bin/php /home/app/artisan migrate
+docker exec whitepeels /usr/local/bin/php /home/app/artisan db:seed
