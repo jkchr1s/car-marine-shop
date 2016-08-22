@@ -19,6 +19,10 @@ class CustomerController extends Controller
     {
         $customers = Customer::orderBy('last_name')->get();
 
+        if (empty($customers)) {
+            $customers = [];
+        }
+
         return view('customer.customers-all', [
             'customers' => $customers
         ]);
