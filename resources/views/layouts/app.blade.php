@@ -45,7 +45,7 @@
                         <li><a href="/home">My Dashboard</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Customers</li>
-                        <li><a href="#">All Customers</a></li>
+                        <li><a href="/customer">All Customers</a></li>
                         <li><a href="#">Customer Search</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Vehicles</li>
