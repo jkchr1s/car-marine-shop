@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\VehicleMake;
+use App\VehicleType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,12 +15,22 @@ class VehicleMakeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $makes = VehicleMake::orderBy('make')->get();
+        $filter = $request->input('type');
+        $filter_name = 'Showing All Vehicle Types';
+        if (!empty($filter)) {
+            $makes = VehicleMake::where('vehicle_type_id', '=', intval($request->input('type')))->orderBy('make')->get();
+            $filter_name = 'Showing ' . VehicleType::findOrFail(intval($request->input('type')))->type;
+        } else {
+            $makes = VehicleMake::orderBy('make')->get();
+        }
+        $types = VehicleType::orderBy('type')->get();
 
         return view('vehicle.vehicle-make', [
-            'makes' => $makes
+            'makes' => $makes,
+            'types' => $types,
+            'filter' => $filter_name
         ]);
     }
 
@@ -46,6 +57,7 @@ class VehicleMakeController extends Controller
         } else {
             $make = new VehicleMake();
             $make->make = $request->input('make');
+            $make->vehicle_type_id = $request->input('type');
             $make->save();
             return redirect('/vehicle_make');
         }

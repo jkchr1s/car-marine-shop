@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class VehicleType extends Model
 {
-    public function vehicle_make()
-    {
+    public function vehicle_makes() {
         return $this->hasMany('App\VehicleMake');
     }
 }

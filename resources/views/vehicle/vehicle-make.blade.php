@@ -6,7 +6,20 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        {{ count($makes) }} vehicle make{{ count($makes) === 1 ? '' : 's' }} found.
+                        <p>{{ count($makes) }} vehicle make{{ count($makes) === 1 ? '' : 's' }} found.</p>
+
+                        <div class="btn-group">
+                            <a href="bootstrap-elements.html" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                                {{ !empty($filter) ? $filter : 'Show All Types' }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach($types as $type)
+                                    <li><a href="/vehicle_make?type={{$type->id}}">Only show {{$type->type}}</a></li>
+                                @endforeach
+                                <li><a href="/vehicle_make">Show All</a></li>
+                            </ul>
+                        </div>
                     </div>
                     {{--<div class="panel-body">--}}
                         {{--<div class="form-group label-floating">--}}
@@ -34,13 +47,12 @@
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="row-action-primary">
-                                {{--<i class="material-icons">{{$make->vehicle_type->icon}}</i>--}}
+                                <i class="material-icons">{{$make->vehicle_type->icon}}</i>
                             </div>
                             <div class="row-content">
                                 <h4 class="list-group-item-heading">{{ $make->make }}</h4>
 
-                                <p class="list-group-item-text">Vehicle Make</p>
-                                <pre>{{print_r($make->vehicle_type, true)}}</pre>
+                                <p class="list-group-item-text">{{$make->vehicle_type->type}} Make</p>
                             </div>
                         </div>
                         <div class="list-group-separator"></div>
@@ -97,7 +109,7 @@
         }
         function addItem() {
             $('#add-item').modal('toggle');
-            $('#inputMake').focus();
+            $('#inputType').focus();
         }
     </script>
     <!-- create modal -->
@@ -112,13 +124,23 @@
                     <div class="modal-body">
                         <fieldset>
                             <div class="form-group">
-                                <label for="inputMake" class="col-md-2 control-label">Make</label>
-
-                                <div class="col-md-10">
-                                    <input type="text" class="form-control" id="inputMake" placeholder="Vehicle Make" name="make">
-                                </div>
+                                <label for="inputType">Vehicle Type</label>
+                                <select id="inputType" class="form-control" name="type">
+                                    @foreach($types as $type)
+                                    <option value="{{$type->id}}">{{$type->type}}</option>
+                                    @endforeach
+                                </select>
                             </div>
+
+                            <div class="form-group label-floating">
+                                <label for="inputMake" class="control-label">Make</label>
+                                <input type="text" class="form-control" id="inputMake" name="make">
+                                <span class="help-block">Enter the make of the vehicle.</span>
+                            </div>
+
+
                         </fieldset>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
