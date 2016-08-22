@@ -8210,5 +8210,13 @@ class VehicleMakeSeeder extends Seeder
         $item->make = 'Yamaha';
         $item->vehicle_type_id = 3;
         $item->save();
+
+        // ------------------------------------
+        //  recreational verhicles
+        // ------------------------------------
+        $item = new VehicleMake();
+        $item->make = 'Mallard';
+        $item->vehicle_type_id = 4;
+        $item->save();
     }
 }

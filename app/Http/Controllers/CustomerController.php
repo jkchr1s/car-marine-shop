@@ -67,7 +67,11 @@ class CustomerController extends Controller
             'first_name' => $customer->first_name,
             'last_name' => $customer->last_name,
             'company' => $customer->company,
-            'customer_type' => $customer->customer_type
+            'customer_type' => $customer->customer_type,
+            'emails' => $customer->emails,
+            'phones' => $customer->phones,
+            'locations' => $customer->locations,
+            'vehicles' => $customer->vehicles
         ]);
     }
 

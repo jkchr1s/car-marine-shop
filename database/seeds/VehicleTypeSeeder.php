@@ -29,5 +29,11 @@ class VehicleTypeSeeder extends Seeder
         $record->type = 'Motorcycle/ATV/SxS';
         $record->icon = 'motorcycle';
         $record->save();
+
+        $record = new VehicleType();
+        $record->id = 4;
+        $record->type = 'Recreational Vehicles';
+        $record->icon = 'directions_bus';
+        $record->save();
     }
 }
