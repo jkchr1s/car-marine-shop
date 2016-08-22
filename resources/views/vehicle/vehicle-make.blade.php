@@ -34,12 +34,13 @@
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="row-action-primary">
-                                <i class="material-icons">assignment</i>
+                                {{--<i class="material-icons">{{$make->vehicle_type->icon}}</i>--}}
                             </div>
                             <div class="row-content">
                                 <h4 class="list-group-item-heading">{{ $make->make }}</h4>
 
                                 <p class="list-group-item-text">Vehicle Make</p>
+                                <pre>{{print_r($make->vehicle_type, true)}}</pre>
                             </div>
                         </div>
                         <div class="list-group-separator"></div>

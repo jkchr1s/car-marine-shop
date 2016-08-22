@@ -14,6 +14,8 @@ class CreateVehicleMakesTable extends Migration
     {
         Schema::create('vehicle_makes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('vehicle_type_id')->unsigned();
+            $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types');
             $table->string('make');
             $table->string('icon');
             $table->timestamps();

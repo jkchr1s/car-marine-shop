@@ -18,7 +18,7 @@
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="row-action-primary">
-                                <i class="material-icons">assignment</i>
+                                <i class="material-icons">{{ isset($type->icon) && !empty($type->icon) ? $type->icon : 'assignment' }}</i>
                             </div>
                             <div class="row-content">
                                 <h4 class="list-group-item-heading">{{ $type->type }}</h4>
