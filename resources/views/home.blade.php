@@ -21,7 +21,7 @@
                 <div class="list-group">
                     <div class="list-group-item">
                         <div class="row-action-primary">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons">supervisor_account</i>
                         </div>
                         <div class="row-content">
                             <h4 class="list-group-item-heading">All Customers</h4>
@@ -41,7 +41,7 @@
                 <div class="list-group">
                     <div class="list-group-item">
                         <div class="row-action-primary">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons">rv_hookup</i>
                         </div>
                         <div class="row-content">
                             <h4 class="list-group-item-heading">Vehicle Types</h4>
@@ -61,7 +61,7 @@
                 <div class="list-group">
                     <div class="list-group-item">
                         <div class="row-action-primary">
-                            <i class="material-icons">person</i>
+                            <i class="material-icons">public</i>
                         </div>
                         <div class="row-content">
                             <h4 class="list-group-item-heading">Vehicle Makes</h4>
