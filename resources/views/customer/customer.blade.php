@@ -60,14 +60,38 @@
                         <a href="javascript:showAddPhone()" class="btn btn-default">Add New Phone Number</a>
 
                         <h4>Locations</h4>
-                        @if(is_array($locations) && count($locations) > 0)
+                        @if($locations->count() > 0)
                             @foreach($locations as $location)
-                                This is a location
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h4>{{$location->location_type->type}}</h4>
+                                        <p>
+                                            @if(!empty($location->address1))
+                                                {{$location->address1}}<br/>
+                                            @endif
+                                            @if(!empty($location->address2))
+                                                {{$location->address2}}<br/>
+                                            @endif
+                                            @if(!empty($location->city))
+                                                {{$location->city}},
+                                            @endif
+                                            @if(!empty($location->state))
+                                                {{$location->state}}
+                                            @endif
+                                            @if(!empty($location->zip))
+                                                {{$location->zip}}
+                                            @endif
+                                        </p>
+                                        <p>
+                                            <a href="#">Modify</a> | <a href="#">Delete</a>
+                                        </p>
+                                    </div>
+                                </div>
                             @endforeach
                         @else
                             <p>This customer doesn't have any locations.</p>
                         @endif
-                        <a href="javascript:alert('todo')" class="btn btn-default">Add New Location</a>
+                        <a href="javascript:showAddLocation()" class="btn btn-default">Add New Location</a>
                     </div>
                 </div>
             </div>
@@ -157,6 +181,70 @@
         </div>
     </div>
     <!-- end phone modal -->
+    <!-- location modal -->
+    <div class="modal" id="add-location">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Add Location</h4>
+                </div>
+                <form method="POST" action="/location">{{ csrf_field() }}
+                    <input type="hidden" name="customer_id" value="{{ $customer_id }}">
+                    <div class="modal-body">
+                        <fieldset>
+                            <p>What type of location is this?</p>
+                            <div class="form-group">
+                                <label for="locationType">Location Type</label>
+                                <select id="locationType" class="form-control" name="location_type_id">
+                                    @foreach($location_types as $type)
+                                        <option value="{{$type->id}}">{{$type->type}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <p><br/>What is the address?</p>
+
+                            <div class="form-group label-floating">
+                                <label for="address1" class="control-label">Address Line 1</label>
+                                <input type="text" class="form-control" id="address1" name="address_1" required="required">
+                                <span class="help-block">Enter the first line of the customer's address.</span>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="address2" class="control-label">Address Line 2</label>
+                                <input type="text" class="form-control" id="address2" name="address_2">
+                                <span class="help-block">Enter the second line of the customer's address.</span>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="city" class="control-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city">
+                                <span class="help-block">Enter the city of the customer's address.</span>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="state" class="control-label">State</label>
+                                <input type="text" class="form-control" id="state" name="state">
+                                <span class="help-block">Enter the state of the customer's address.</span>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="zip" class="control-label">Zip Code</label>
+                                <input type="text" class="form-control" id="zip" name="zip">
+                                <span class="help-block">Enter the zip code of the customer's address.</span>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end location modal -->
 
     <script type="text/javascript">
         function showAddEmail() {
@@ -167,6 +255,11 @@
         function showAddPhone() {
             $('#add-phone').modal('toggle');
             $('#phoneType').focus();
+        }
+
+        function showAddLocation() {
+            $('#add-location').modal('toggle');
+            $('#locationType').focus();
         }
     </script>
 

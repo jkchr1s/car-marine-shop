@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CustomerType;
+use App\LocationType;
 use App\PhoneType;
 use Log;
 use App\Customer;
@@ -78,7 +79,8 @@ class CustomerController extends Controller
             'locations' => $customer->locations,
             'vehicles' => $customer->vehicles,
             'customer_id' => $id,
-            'phone_types' => PhoneType::orderBy('type')->get()
+            'phone_types' => PhoneType::orderBy('type')->get(),
+            'location_types' => LocationType::orderBy('type')->get()
         ]);
     }
 

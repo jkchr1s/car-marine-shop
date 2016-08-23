@@ -11,7 +11,7 @@ class Location extends Model
     /**
      * Get the customer type associated with the customer
      */
-    public function type()
+    public function location_type()
     {
         return $this->belongsTo('App\LocationType');
     }
