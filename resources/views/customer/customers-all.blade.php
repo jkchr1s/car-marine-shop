@@ -25,9 +25,15 @@
                   @endif
                 </div>
                 <div class="row-content">
-                  <h4 class="list-group-item-heading">{{ $customer->last_name }}, {{ $customer->first_name }}</h4>
+                  <h4 class="list-group-item-heading">
+                    @if(strlen($customer->first_name) > 0 || strlen($customer->last_name) > 0)
+                      {{ $customer->last_name }}, {{ $customer->first_name }}
+                    @else
+                      {{ $customer->company }}
+                    @endif
+                  </h4>
 
-                  <p class="list-group-item-text">Stuff here</p>
+                  <p class="list-group-item-text">Customer since {{ $customer->created_at }}</p>
                 </div>
               </div>
               <div class="list-group-separator"></div>
@@ -99,22 +105,27 @@
           <div class="modal-body">
             <fieldset>
               <div class="form-group">
-                <label for="firstName" class="col-md-2 control-label">First Name</label>
-                <div class="col-md-10">
-                  <input type="text" class="form-control" id="firstName" placeholder="First Name" name="first_name">
-                </div>
+                <label for="customerType">Customer Type</label>
+                <select id="customerType" class="form-control" name="customer_type">
+                  @foreach($types as $type)
+                    <option value="{{$type->id}}">{{$type->type}}</option>
+                  @endforeach
+                </select>
               </div>
-              <div class="form-group">
-                <label for="lastName" class="col-md-2 control-label">Last Name</label>
-                <div class="col-md-10">
-                  <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="last_name">
-                </div>
+              <div class="form-group label-floating">
+                <label for="firstName" class="control-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="first_name">
+                <span class="help-block">Enter the customer's first name.</span>
               </div>
-              <div class="form-group">
-                <label for="company" class="col-md-2 control-label">Company</label>
-                <div class="col-md-10">
-                  <input type="text" class="form-control" id="company" placeholder="Company" name="company">
-                </div>
+              <div class="form-group label-floating">
+                <label for="lastName" class="control-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="last_name">
+                <span class="help-block">Enter the customer's last name.</span>
+              </div>
+              <div class="form-group label-floating">
+                <label for="company" class="control-label">Company Name</label>
+                <input type="text" class="form-control" id="company" name="company">
+                <span class="help-block">Enter the customer's company name.</span>
               </div>
             </fieldset>
           </div>
