@@ -46,6 +46,7 @@ class VehicleTypeController extends Controller
         } else {
             $type = new VehicleType();
             $type->type = $request->input('type');
+            $type->icon = $request->input('icon');
             $type->save();
             return redirect('/vehicle_type');
         }

@@ -94,12 +94,29 @@
                 <form method="POST" action="/vehicle_type">{{ csrf_field() }}
                     <div class="modal-body">
                         <fieldset>
-                            <div class="form-group">
-                                <label for="inputType" class="col-md-2 control-label">Type</label>
+                            <div class="form-group label-floating">
+                                <label for="vehicleType" class="control-label">Vehicle Type</label>
+                                <input type="text" class="form-control" id="vehicleType" name="type">
+                                <span class="help-block">Enter a description for the vehicle type.</span>
+                            </div>
 
-                                <div class="col-md-10">
-                                    <input type="text" class="form-control" id="inputType" placeholder="Vehicle Type" name="type">
-                                </div>
+                            <div class="form-group">
+                                <label for="vehicleTypeIcon">Icon</label>
+                                <select id="vehicleTypeIcon" class="form-control" name="icon">
+                                    <option value="directions_car">Car</option>
+                                    <option value="ac_unit">Air Conditioning Unit</option>
+                                    <option value="airport_shuttle">Airport Shuttle</option>
+                                    <option value="rv_hookup">RV Hookup</option>
+                                    <option value="train">Train</option>
+                                    <option value="local_gas_station">Gas Station</option>
+                                    <option value="local_car_wash">Car Wash</option>
+                                    <option value="directions_bike">Bicycle</option>
+                                    <option value="directions_boat">Boat</option>
+                                    <option value="motorcycle">Motorcycle</option>
+                                    <option value="shopping_cart">Shopping Cart</option>
+                                    <option value="radio">Radio</option>
+                                    <option value="directions_bus">Bus</option>
+                                </select>
                             </div>
                         </fieldset>
                     </div>
