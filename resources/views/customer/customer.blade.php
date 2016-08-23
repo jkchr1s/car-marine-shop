@@ -83,7 +83,9 @@
                                             @endif
                                         </p>
                                         <p>
-                                            <a href="#">Modify</a> | <a href="#">Delete</a>
+                                            <a href="https://www.google.com/maps/place/{{urlencode(!empty($location->address1) ? $location->address1.',' : '')}}{{urlencode(!empty($location->address2) ? $location->address2.',' : '')}}{{urlencode(!empty($location->city) ? $location->city.',' : '')}}{{urlencode(!empty($location->state) ? $location->state.',' : '')}}{{urlencode(!empty($location->zip) ? $location->zip.',' : '')}}">Show in Maps</a>
+                                            | <a href="#">Modify</a>
+                                            | <a href="#">Delete</a>
                                         </p>
                                     </div>
                                 </div>
