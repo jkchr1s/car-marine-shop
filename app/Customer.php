@@ -21,7 +21,7 @@ class Customer extends Model
      */
     public function emails()
     {
-        return $this->hasMany('App\Email');
+        return $this->hasMany('App\Email', 'customer_id', 'id');
     }
 
     /**

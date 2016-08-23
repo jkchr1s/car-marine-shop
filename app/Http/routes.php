@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth'], function() {
    Route::resource('/vehicle_make', 'VehicleMakeController');
    Route::resource('/vehicle_type', 'VehicleTypeController');
    Route::resource('/customer', 'CustomerController');
+   Route::resource('/email', 'EmailController');
 });

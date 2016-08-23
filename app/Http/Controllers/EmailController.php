@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\CustomerType;
-use Log;
-use App\Customer;
+use App\Email;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class CustomerController extends Controller
+class EmailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,17 +16,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('last_name')->get();
-        $types = CustomerType::orderBy('type')->get();
-
-        if (empty($customers)) {
-            $customers = [];
-        }
-
-        return view('customer.customers-all', [
-            'customers' => $customers,
-            'types' => $types
-        ]);
+        //
     }
 
     /**
@@ -38,7 +26,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create', []);
+        //
     }
 
     /**
@@ -49,13 +37,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-       $customer = new Customer();
-        $customer->customer_type_id = intval($request->input('customer_type'));
-       $customer->first_name = $request->has('first_name') ? $request->input('first_name') : '';
-       $customer->last_name = $request->has('last_name') ? $request->input('last_name') : '';
-       $customer->company = $request->has('company') ? $request->input('company') : '';
-       $customer->save();
-       return redirect('/customer/'.$customer->id);
+        if (!$request->has('customer_id')) {
+            return response(['error' => 'You must specify customer_id']);
+        }
+        $item = new Email();
+        $item->customer_id = intval($request->input('customer_id'));
+        $item->email = $request->input('email');
+        $item->save();
+        return redirect('/customer/'.$request->input('customer_id'));
     }
 
     /**
@@ -66,18 +55,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::findOrFail($id);
-        return view('customer.customer', [
-            'first_name' => $customer->first_name,
-            'last_name' => $customer->last_name,
-            'company' => $customer->company,
-            'customer_type' => $customer->customer_type,
-            'emails' => $customer->emails,
-            'phones' => $customer->phones,
-            'locations' => $customer->locations,
-            'vehicles' => $customer->vehicles,
-            'customer_id' => $id
-        ]);
+        //
     }
 
     /**
