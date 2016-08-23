@@ -9,31 +9,64 @@
                     <h3 class="panel-title">My Dashboard</h3>
                 </div>
                 <div class="panel-body">
-                    My Available Actions
+                    Click or touch a card below to get started.
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row selectable" onclick="window.location='/customer';">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
                 <div class="list-group">
-                    <div class="list-group-item" onclick="window.href='/customer';">
+                    <div class="list-group-item">
                         <div class="row-action-primary">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">person</i>
                         </div>
                         <div class="row-content">
-                            <div class="least-content">{{ $customerCount }} customer{{ $customerCount !== 1 ? 's' : '' }}</div>
-                            <h4 class="list-group-item-heading">Customers</h4>
+                            <h4 class="list-group-item-heading">All Customers</h4>
 
-                            <p class="list-group-item-text">Manage customers</p>
+                            <p class="list-group-item-text">View a list of all current customers</p>
                         </div>
                     </div>
                     <div class="list-group-separator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row selectable" onclick="window.location='/vehicle_type';">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="list-group">
                     <div class="list-group-item">
                         <div class="row-action-primary">
-                            <i class="material-icons">directions_car</i>
+                            <i class="material-icons">person</i>
                         </div>
                         <div class="row-content">
-<!--                            <div class="least-content">10m</div>-->
-                            <h4 class="list-group-item-heading">Vehicles</h4>
+                            <h4 class="list-group-item-heading">Vehicle Types</h4>
 
-                            <p class="list-group-item-text">Manage vehicles</p>
+                            <p class="list-group-item-text">Manage types of vehicles.</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row selectable" onclick="window.location='/vehicle_make';">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <div class="row-content">
+                            <h4 class="list-group-item-heading">Vehicle Makes</h4>
+
+                            <p class="list-group-item-text">Manage makes of vehicles.</p>
                         </div>
                     </div>
                     <div class="list-group-separator"></div>
