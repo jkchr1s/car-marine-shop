@@ -39,17 +39,25 @@
                         <a href="javascript:showAddEmail()" class="btn btn-default">Add New Email Address</a>
 
                         <h4>Phone</h4>
-                        @if(is_array($phones) && count($phones) > 0)
-                            <ul>
-                                @foreach($phones as $phone)
-                                    <li><a href="tel:{{$phone->number}}">Call {{$phone->number}} ({{$phone->type}}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+                        @if($phones->count() > 0)
+                            @foreach($phones as $phone)
+                                <div class="btn-group">
+                                    <a href="#" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                                        <i class="material-icons">phone</i>&nbsp;{{$phone->number}} ({{$phone->phone_type->type}})
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="tel:{{$phone->number}}">Call {{$phone->number}} ({{$phone->phone_type->type}})</a></li>
+                                        <li><a href="sms:{{$phone->number}}">Text {{$phone->number}} ({{$phone->phone_type->type}})</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="javascript:alert('todo')">Delete</a></li>
+                                    </ul>
+                                </div><br/>
+                            @endforeach
                         @else
                             <p>This customer doesn't have any phone numbers.</p>
                         @endif
-                        <a href="javascript:void(0)" class="btn btn-default">Add New Phone Number</a>
+                        <a href="javascript:showAddPhone()" class="btn btn-default">Add New Phone Number</a>
 
                         <h4>Locations</h4>
                         @if(is_array($locations) && count($locations) > 0)
@@ -59,7 +67,7 @@
                         @else
                             <p>This customer doesn't have any locations.</p>
                         @endif
-                        <a href="javascript:void(0)" class="btn btn-default">Add New Location</a>
+                        <a href="javascript:alert('todo')" class="btn btn-default">Add New Location</a>
                     </div>
                 </div>
             </div>
@@ -98,7 +106,7 @@
                         <fieldset>
                             <div class="form-group label-floating">
                                 <label for="email" class="control-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" required="required">
                                 <span class="help-block">Enter the customer's email address.</span>
                             </div>
                         </fieldset>
@@ -112,11 +120,53 @@
         </div>
     </div>
     <!-- end email modal -->
+    <!-- phone modal -->
+    <div class="modal" id="add-phone">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Add Phone Number</h4>
+                </div>
+                <form method="POST" action="/phone">{{ csrf_field() }}
+                    <input type="hidden" name="customer_id" value="{{ $customer_id }}">
+                    <div class="modal-body">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="phoneType">Phone Type</label>
+                                <select id="phoneType" class="form-control" name="phone_type_id">
+                                    @foreach($phone_types as $type)
+                                        <option value="{{$type->id}}">{{$type->type}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group label-floating">
+                                <label for="phone" class="control-label">Phone Number</label>
+                                <input type="text" class="form-control" id="email" name="phone_number" required="required">
+                                <span class="help-block">Enter the customer's phone number.</span>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end phone modal -->
 
     <script type="text/javascript">
         function showAddEmail() {
             $('#add-email').modal('toggle');
             $('#email').focus();
+        }
+
+        function showAddPhone() {
+            $('#add-phone').modal('toggle');
+            $('#phoneType').focus();
         }
     </script>
 

@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    protected $fillable = ['customer_id', 'type', 'number'];
+    protected $fillable = ['customer_id', 'phone_type_id', 'number'];
+
+    public function phone_type()
+    {
+        return $this->belongsTo('App\PhoneType', 'phone_type_id', 'id');
+    }
 
     /**
      * Get the customer that owns the phone.
