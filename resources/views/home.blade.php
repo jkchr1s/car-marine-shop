@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="list-group">
-                    <div class="list-group-item">
+                    <div class="list-group-item" onclick="window.href='/customer';">
                         <div class="row-action-primary">
                             <i class="material-icons">face</i>
                         </div>

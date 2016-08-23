@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
+                    <a href="/home">Go to Dashboard</a>
                 </div>
             </div>
         </div>
