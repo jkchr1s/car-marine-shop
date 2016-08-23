@@ -9,7 +9,7 @@
                         <p>{{ count($makes) }} vehicle make{{ count($makes) === 1 ? '' : 's' }} found.</p>
 
                         <div class="btn-group">
-                            <a href="bootstrap-elements.html" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
                                 {{ !empty($filter) ? $filter : 'Show All Types' }}
                                 <span class="caret"></span>
                             </a>
