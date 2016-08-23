@@ -89,6 +89,8 @@ class EmailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Email::find($id);
+        $item->delete();
+        return response(['success' => true]);
     }
 }

@@ -29,7 +29,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="mailto:{{$email->email}}">Send Email to {{$email->email}}</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="javascript:alert('todo')">Delete</a></li>
+                                        <li><a href="javascript:showDeleteConfirmation('email', {{$email->id}}, '{{str_replace("'", '&#39;', $email->email)}}')">Delete</a></li>
                                     </ul>
                                 </div><br/>
                             @endforeach
@@ -50,7 +50,7 @@
                                         <li><a href="tel:{{$phone->number}}">Call {{$phone->number}} ({{$phone->phone_type->type}})</a></li>
                                         <li><a href="sms:{{$phone->number}}">Text {{$phone->number}} ({{$phone->phone_type->type}})</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="javascript:alert('todo')">Delete</a></li>
+                                        <li><a href="javascript:showDeleteConfirmation('phone', {{$phone->id}}, '{{str_replace("'", '&#39;', $phone->number)}}')">Delete</a></li>
                                     </ul>
                                 </div><br/>
                             @endforeach
@@ -85,7 +85,7 @@
                                         <p>
                                             <a href="https://www.google.com/maps/place/{{urlencode(!empty($location->address1) ? $location->address1.',' : '')}}{{urlencode(!empty($location->address2) ? $location->address2.',' : '')}}{{urlencode(!empty($location->city) ? $location->city.',' : '')}}{{urlencode(!empty($location->state) ? $location->state.',' : '')}}{{urlencode(!empty($location->zip) ? $location->zip.',' : '')}}">Show in Maps</a>
                                             | <a href="#">Modify</a>
-                                            | <a href="#">Delete</a>
+                                            | <a href="javascript:showDeleteConfirmation('location', {{$location->id}}, '{{str_replace("'", '&#39;', $location->address1)}}')">Delete</a>
                                         </p>
                                     </div>
                                 </div>
@@ -247,6 +247,26 @@
         </div>
     </div>
     <!-- end location modal -->
+    <!-- confirmation modal -->
+    <div class="modal" id="delete-confirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Delete Item</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this <span id="delete-type"></span>?</p>
+                    <p id="delete-text"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="delete-confirm">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end confirmation modal -->
 
     <script type="text/javascript">
         function showAddEmail() {
@@ -262,6 +282,26 @@
         function showAddLocation() {
             $('#add-location').modal('toggle');
             $('#locationType').focus();
+        }
+
+        function showDeleteConfirmation(type, id, text) {
+            $('#delete-text').html(text);
+            $('#delete-type').html(type);
+            $('#delete-confim').unbind();
+            $('#delete-confirm').on('click', function(e) {
+                $('#delete-confirmation').modal('toggle');
+                $.ajax({
+                    url: '/' + encodeURIComponent(type) + '/' + encodeURIComponent(id),
+                    type: 'DELETE',
+                    success: function(result) {
+                        location.reload();
+                    },
+                    error: function(err) {
+                        alert('There was an error deleting this item.');
+                    }
+                });
+            });
+            $('#delete-confirmation').modal('toggle');
         }
     </script>
 

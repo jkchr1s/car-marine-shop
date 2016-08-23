@@ -94,6 +94,8 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Location::find($id);
+        $item->delete();
+        return response(['success' => true]);
     }
 }

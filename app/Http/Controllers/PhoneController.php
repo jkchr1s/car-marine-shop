@@ -90,6 +90,8 @@ class PhoneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Phone::find($id);
+        $item->delete();
+        return response(['success' => true]);
     }
 }
