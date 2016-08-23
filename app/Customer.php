@@ -13,7 +13,7 @@ class Customer extends Model
      */
     public function customer_type()
     {
-        return $this->belongsTo('App\CustomerType', 'id');
+        return $this->belongsTo('App\CustomerType', 'customer_type_id', 'id');
     }
 
     /**
