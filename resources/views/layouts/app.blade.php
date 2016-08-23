@@ -39,7 +39,7 @@
         <div class="navbar-collapse collapse navbar-inverse-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Menu
+                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Menu
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/home">My Dashboard</a></li>
@@ -68,7 +68,7 @@
                 <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
                 <li class="dropdown">
-                    <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}
+                    <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/logout') }}">Logout</a></li>
