@@ -15,7 +15,7 @@ class CreateLocationTypesTable extends Migration
         Schema::create('location_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->string('icon');
+            $table->string('icon')->default('unchecked');
             $table->timestamps();
         });
     }

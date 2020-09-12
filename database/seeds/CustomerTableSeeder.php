@@ -16,6 +16,7 @@ class CustomerTableSeeder extends Seeder
         $customer->first_name = 'Chris';
         $customer->last_name = 'Bethel';
         $customer->customer_type_id = 1;
+        $customer->company = '';
         $customer->save();
     }
 }

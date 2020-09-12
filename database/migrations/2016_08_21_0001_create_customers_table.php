@@ -18,7 +18,7 @@ class CreateCustomersTable extends Migration
             $table->foreign('customer_type_id')->references('id')->on('customer_types');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('company');
+            $table->string('company')->default('');
             $table->timestamps();
         });
     }
