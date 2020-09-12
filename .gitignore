@@ -6,7 +6,7 @@ Homestead.json
 .env
 .DS_Store
 .idea
-whitepeels.iml
 composer.lock
 .bash_history
 .composer
+.phpunit.*
