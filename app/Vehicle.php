@@ -7,6 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'customer_id',
+        'vehicle_type_id',
+        'vehicle_make_id',
+        'vehicle_model_id',
+        'year'
+    ];
+
+    /**
      * Get the identification records associated with the vehicle.
      */
     public function identifications()
