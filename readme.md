@@ -100,3 +100,11 @@ Now that we have installed our depenencies, migrated, seeded the database, and c
 php artisan serve
 ```
 and [open the application in your browser](http://localhost:8000)
+
+
+## Additional Notes
+My mentality has changed a lot since originally writing (and abandoning) this project. Some notes:
+* Several JavaScript assets were included in the [public folder](public/) with no documentation of where these came from. This is bad, and I no longer do this.
+* [Original templates](resources/views) are copy and pasting things everywhere... I left the old as-is as an example of picking up a project and not doing re-work, but my [new](resources/views/vehicle_model/index.blade.php) [stuff](resources/views/vehicle/create.blade.php) is utilizing [partials](resources/views/partials). The old-school server-side crud mentality is hard to leave as-is and not modernize as a SPA, but I'm trying to make things fit in to the old project without completely rewriting large chunks of code.
+* This project will be a work-in-progress throughout the week.
+* [New](app/Http/Controllers/VehicleModelController.php) [controllers](app/Http/Controllers/VehicleController.php) use much better validation rules than existing ones. Ideally, I'd go through and re-work the old ones.
