@@ -111,7 +111,7 @@
                         @else
                             <p>This customer doesn't have any vehicles.</p>
                         @endif
-                        <a href="javascript:void(0)" class="btn btn-default">Add New Vehicle</a>
+                        <a href="{{ route('vehicle.create') }}?customer_id={{ $customer_id }}" class="btn btn-default">Add New Vehicle</a>
                     </div>
                 </div>
             </div>
