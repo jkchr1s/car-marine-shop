@@ -1,27 +1,102 @@
-# Laravel PHP Framework
+# Car/Marine Shop
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## What is this?
+This is a project I started in [2016](https://github.com/jkchr1s/car-marine-shop/commit/4a2bcf1670036501d9515422854d583667c09eda) for a friend of mine that ran an auto/boat repair shop. I was going to trade him the app for help doing a V8 conversion on my Jeep Wrangler. Things fell through, and this app was never completed.
+* The tag [v1.0.0](https://github.com/jkchr1s/car-marine-shop/releases/tag/v1.0.0) / [starting-point branch](https://github.com/jkchr1s/car-marine-shop/tree/starting-point) is a snapshot of the project when abandoned in 2016.
+* I am using this [project board](https://github.com/jkchr1s/car-marine-shop/projects/1) to track things I want to achieve with the project.
+* I had a [MySQL Workbench draft of schema I was planning to implement](https://github.com/jkchr1s/car-marine-shop/blob/starting-point/model%20EER.mwb) that helped me quickly refresh where the app was heading.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Why am I sharing this?
+I was asked for an example of my best work, but unfortunately my best work is closed-sourced at the company I work for. It would be unethical to share, and I only have a few days to come up with something to share with you.
 
-## Official Documentation
+Based on the conversation we had, I am pretending that this abandoned project of mine from 2016 is something that a client would bring me that needs a few things added to it. My goals are to:
+1. Get the app to [start up and run](https://github.com/jkchr1s/car-marine-shop/commit/c4b0a5767bf8c338b661d13e23d8e69cabbc6985)
+2. Update core framework from Laravel 5.2 to Laravel 8 as it was running an unsupported version (these require incremental code changes):
+    1. [Upgrade from Laravel 5.2 to 5.3](https://github.com/jkchr1s/car-marine-shop/pull/1)
+    2. [Upgrade from Laravel 5.3 to 5.4](https://github.com/jkchr1s/car-marine-shop/pull/2)
+    3. [Upgrade from Laravel 5.4 to 5.5](https://github.com/jkchr1s/car-marine-shop/pull/3)
+    4. [Upgrade from Laravel 5.5 to 5.6](https://github.com/jkchr1s/car-marine-shop/pull/4)
+    5. [Upgrade from Laravel 5.6 to 5.7](https://github.com/jkchr1s/car-marine-shop/pull/5)
+    6. [Upgrade from Laravel 5.7 to 5.8](https://github.com/jkchr1s/car-marine-shop/pull/6)
+    7. [Upgrade from Laravel 5.8 to 6](https://github.com/jkchr1s/car-marine-shop/pull/7)
+    8. [Upgrade from Laravel 6 to 7](https://github.com/jkchr1s/car-marine-shop/pull/8)
+    9. [Upgrade from Laravel 7 to 8](https://github.com/jkchr1s/car-marine-shop/pull/9)
+3. Document procedure to start up the application
+4. Add some new features
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-## Contributing
+## Requirements
+To build the project, you will need:
+- A server meeting the [Laravel 8.0 Server Requirements](https://laravel.com/docs/8.x#server-requirements)
+- [Composer](https://getcomposer.org/) to install PHP dependencies
+- [Node 12 with npm](https://nodejs.org/en/) to build and transpile JavaScript and CSS
+- A [database supported by Laravel 8.0](https://laravel.com/docs/8.x/database#introduction)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-## Security Vulnerabilities
+### Installing Dependencies
+Before we can run the application, you first need to install the PHP dependencies. You can do this by running:
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+After installing the PHP dependencies, we then need to install the JavaScript dependencies. To do this, run:
+```bash
+npm ci
+```
 
-## License
+Finally, we need to run webpack to generate our static assets. Let's kick off Laravel Mix to build our development dependencies by running:
+```bash
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+### Configuration
+Now that we have our dependencies installed, we need to configure our application. In production environments, we will declare environment variables in our Docker container, but for local development we can use [phpdotenv](https://github.com/vlucas/phpdotenv). First, copy the example file to `.env`:
+```bash
+cp .env.example .env
+```
+
+Since our application requires an encryption key, you'll need to generate a new one:
+```bash
+php artisan key:generate
+```
+
+If you have a database instance readily available, create a new database, user, and password. Alternatively, you can use sqlite after installing the PHP sqlite PDO driver. **If you're using sqlite**, you can create an empty database:
+```bash
+touch database.sqlite
+```
+
+Next, open the `.env` file in your favorite text editor. Refer to [config/database.php](config/database.php) to see which environment variables are required for your database system, and be sure to fill in your `.env` file accordingly. **If you're using sqlite**, you can use these values:
+```
+DB_CONNECTION=sqlite
+DB_DATABASE=/path/to/database.sqlite
+```
+(be sure to replace `/path/to/database.sqlite` with the fully-qualified path to the sqlite database you're trying to use)
+
+
+### Get the database up and running
+Now that you've configured the database, we need to run our [migrations](database/migrations) to create the tables necessary to run the application. To do this, run:
+```bash
+php artisan migrate
+```
+
+Go ahead and seed the database with some example data:
+```bash
+php artisan database:seed
+```
+
+### Create an initial user account
+We're almost up and running! Create an initial user so we can log in to the application by running:
+```bash
+php artisan user:create
+```
+(simply answer the questions as prompted)
+
+
+## Start the application
+Now that we have installed our depenencies, migrated, seeded the database, and created a user account, we're ready to start the app! To use the built-in development server, run:
+```bash
+php artisan serve
+```
+and [open the application in your browser](http://localhost:8000)
