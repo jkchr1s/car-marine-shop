@@ -51,6 +51,7 @@ lib.documentReady(() => {
                         });
                     }
                     if (enableDelete) {
+                        // set the form method for delete functionality
                         lib.forEachNode(form.querySelectorAll('[data-delete]'), btn => {
                             btn.setAttribute('data-delete', enableDelete);
                         });
@@ -62,6 +63,7 @@ lib.documentReady(() => {
 
         // for each associated form, override the default action on form submit
         lib.forEachNode(`#${el.getAttribute('data-open-modal')} form`, form => {
+            // handle form submit
             form.addEventListener('submit', e => {
                 e.preventDefault();
                 // todo: use window.fetch instead
@@ -78,6 +80,7 @@ lib.documentReady(() => {
                 });
             });
 
+            // handle delete button in modal
             lib.forEachNode(form.querySelectorAll('[data-delete]'), deleteButton => {
                 deleteButton.addEventListener('click', e => {
                     e.preventDefault();
