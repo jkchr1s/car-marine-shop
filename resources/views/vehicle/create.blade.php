@@ -18,8 +18,7 @@
             <form id="create_vehicle_form" class="form-horizontal">
               <fieldset>
                 <legend>New Vehicle</legend>
-
-                {{ csrf_field() }}
+                
                 <input type="hidden" name="customer_id" value="{{ $customer->id }}">
 
                 @include('partials.horiz-input', [
