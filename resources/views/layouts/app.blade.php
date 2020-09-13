@@ -57,11 +57,11 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control col-md-8" placeholder="Search">
-                </div>
-            </form>
+            <!-- <form class="navbar-form navbar-left"> -->
+                <!-- <div class="form-group"> -->
+                    <!-- <input type="text" class="form-control col-md-8" placeholder="Search"> -->
+                <!-- </div> -->
+            <!-- </form> -->
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
                 <li><a href="{{ url('/login') }}">Login</a></li>
