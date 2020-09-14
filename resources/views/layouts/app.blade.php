@@ -53,15 +53,15 @@
                         <li class="dropdown-header">Vehicle Management</li>
                         <li><a href="/vehicle_type">Types</a></li>
                         <li><a href="/vehicle_make">Makes</a></li>
-                        <li><a href="#">Models</a></li>
+                        <li><a href="{{ route('vehicle_model.index') }}">Models</a></li>
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control col-md-8" placeholder="Search">
-                </div>
-            </form>
+            <!-- <form class="navbar-form navbar-left"> -->
+                <!-- <div class="form-group"> -->
+                    <!-- <input type="text" class="form-control col-md-8" placeholder="Search"> -->
+                <!-- </div> -->
+            <!-- </form> -->
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
                 <li><a href="{{ url('/login') }}">Login</a></li>
@@ -83,21 +83,10 @@
     @yield('content')
 
     <!-- JavaScripts -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
     <script src="/js/material.min.js"></script>
     <script src="/js/ripples.min.js"></script>
-    <script>
-        $(function () {
-            $.material.init();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        });
-    </script>
-    <script src="/js/site.js"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

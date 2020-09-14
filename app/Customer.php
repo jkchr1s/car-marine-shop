@@ -47,4 +47,16 @@ class Customer extends Model
     {
         return $this->hasMany('App\Vehicle');
     }
+
+    /**
+     * Gets the display name for the customer
+     *
+     * @return str
+     */
+    public function getDisplayNameAttribute()
+    {
+        return empty($this->company)
+            ? sprintf('%s %s', $this->first_name, $this->last_name)
+            : $this->company;
+    }
 }

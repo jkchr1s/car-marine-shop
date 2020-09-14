@@ -7,6 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'customer_id',
+        'vehicle_type_id',
+        'vehicle_make_id',
+        'vehicle_model_id',
+        'year'
+    ];
+
+    /**
      * Get the identification records associated with the vehicle.
      */
     public function identifications()
@@ -19,7 +32,7 @@ class Vehicle extends Model
      */
     public function make()
     {
-        return $this->hasOne('App\VehicleMake');
+        return $this->belongsTo('App\VehicleMake', 'vehicle_make_id');
     }
 
     /**
@@ -27,7 +40,7 @@ class Vehicle extends Model
      */
     public function model()
     {
-        return $this->hasOne('App\VehicleModel');
+        return $this->belongsTo('App\VehicleModel', 'vehicle_model_id');
     }
 
     /**
@@ -51,6 +64,16 @@ class Vehicle extends Model
      */
     public function type()
     {
-        return $this->hasOne('App\VehicleType');
+        return $this->belongsTo('App\VehicleType', 'vehicle_type_id');
+    }
+
+    /**
+     * Gets the description of the vehicle
+     *
+     * @return str
+     */
+    public function getDescriptionAttribute()
+    {
+        return sprintf('%s %s %s', $this->year, $this->make->make, $this->model->model);
     }
 }

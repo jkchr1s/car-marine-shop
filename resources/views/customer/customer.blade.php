@@ -104,14 +104,26 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h2>Vehicles</h2>
-                        @if(is_array($vehicles) && count($vehicles) > 0)
+                        @if($vehicles->count() > 0)
                             @foreach($vehicles as $vehicle)
-                                This is a vehicle
+                            <div class="btn-group">
+                                <a href="#" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">{{ $vehicle->type->icon }}</i>
+                                    &nbsp;
+                                    {{ $vehicle->description }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('vehicle.show', ['vehicle' => $vehicle->id]) }}">Show</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:showDeleteConfirmation('vehicle', {{$vehicle->id}}, '{{str_replace("'", '&#39;', $vehicle->description)}}')">Delete</a></li>
+                                </ul>
+                            </div><br/>
                             @endforeach
                         @else
                             <p>This customer doesn't have any vehicles.</p>
                         @endif
-                        <a href="javascript:void(0)" class="btn btn-default">Add New Vehicle</a>
+                        <a href="{{ route('vehicle.create') }}?customer_id={{ $customer_id }}" class="btn btn-default">Add New Vehicle</a>
                     </div>
                 </div>
             </div>

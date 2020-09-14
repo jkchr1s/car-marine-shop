@@ -100,3 +100,16 @@ Now that we have installed our depenencies, migrated, seeded the database, and c
 php artisan serve
 ```
 and [open the application in your browser](http://localhost:8000)
+
+
+## Additional Notes
+My mentality has changed a lot since originally writing (and abandoning) this project. Some notes:
+* Several JavaScript assets were included in the [public folder](public/) with no documentation of where these came from. This is bad, and I no longer do this.
+* [Original templates](resources/views) are copy and pasting things everywhere... I left the old as-is as an example of picking up a project and not doing re-work, but my [new](resources/views/vehicle_model/index.blade.php) [stuff](resources/views/vehicle/create.blade.php) is utilizing [partials](resources/views/partials). The old-school server-side crud mentality is hard to leave as-is and not modernize as a SPA, but I'm trying to make things fit in to the old project without completely rewriting large chunks of code.
+* This project will be a work-in-progress throughout the week.
+* [New](app/Http/Controllers/VehicleModelController.php) [controllers](app/Http/Controllers/VehicleController.php) use much better validation rules than existing ones. Ideally, I'd go through and re-work the old ones given the time.
+* The [Material Design library](public/js/material.js) is not very accessible -- it does not work with keyboard navigation on drop-down menus. I would not pick this today, but left it as-is.
+* This project was built on Bootstrap 3, which inevitably brought jQuery along with it... with ES6, this is overkill, and I wouldn't do this today. See [my common JavaScript shared library](https://github.com/jkchr1s/jkchr1s-libs), also [now being used in this app](resources/js/app.js)
+* Error handling needs to be refactored
+* Optimize queries so that related models don't perform multiple queries
+* This application is still incomplete. It's not possible for me to complete it over a weekend, but hopefully you agree that it's good to see me in action picking up something that I haven't touched in 2016, updating the core framwork, and adding new features to it. I'd love to show it to you, discuss things that are wrong with it, things I'd do differently, etc.
