@@ -52,7 +52,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
        $customer = new Customer();
-        $customer->customer_type_id = intval($request->input('customer_type'));
+       $customer->customer_type_id = intval($request->input('customer_type'));
        $customer->first_name = $request->has('first_name') ? $request->input('first_name') : '';
        $customer->last_name = $request->has('last_name') ? $request->input('last_name') : '';
        $customer->company = $request->has('company') ? $request->input('company') : '';

@@ -87,5 +87,6 @@
     <script src="/js/material.min.js"></script>
     <script src="/js/ripples.min.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

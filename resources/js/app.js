@@ -15,7 +15,10 @@ $(function () {
 // legacy code
 window.goBack = () => {
     window.history.back();
-}
+};
+window.getCsrfToken = () => {
+    return document.querySelectorAll('meta[name="csrf-token"]')[0].getAttribute('content');
+};
 
 lib.documentReady(() => {
     // handler for showing modals

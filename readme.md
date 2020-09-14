@@ -110,4 +110,6 @@ My mentality has changed a lot since originally writing (and abandoning) this pr
 * [New](app/Http/Controllers/VehicleModelController.php) [controllers](app/Http/Controllers/VehicleController.php) use much better validation rules than existing ones. Ideally, I'd go through and re-work the old ones given the time.
 * The [Material Design library](public/js/material.js) is not very accessible -- it does not work with keyboard navigation on drop-down menus. I would not pick this today, but left it as-is.
 * This project was built on Bootstrap 3, which inevitably brought jQuery along with it... with ES6, this is overkill, and I wouldn't do this today. See [my common JavaScript shared library](https://github.com/jkchr1s/jkchr1s-libs), also [now being used in this app](resources/js/app.js)
+* Error handling needs to be refactored
+* Optimize queries so that related models don't perform multiple queries
 * This application is still incomplete. It's not possible for me to complete it over a weekend, but hopefully you agree that it's good to see me in action picking up something that I haven't touched in 2016, updating the core framwork, and adding new features to it. I'd love to show it to you, discuss things that are wrong with it, things I'd do differently, etc.

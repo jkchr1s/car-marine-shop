@@ -32,7 +32,7 @@ class Vehicle extends Model
      */
     public function make()
     {
-        return $this->hasOne('App\VehicleMake');
+        return $this->belongsTo('App\VehicleMake', 'vehicle_make_id');
     }
 
     /**
@@ -40,7 +40,7 @@ class Vehicle extends Model
      */
     public function model()
     {
-        return $this->hasOne('App\VehicleModel');
+        return $this->belongsTo('App\VehicleModel', 'vehicle_model_id');
     }
 
     /**
@@ -64,6 +64,16 @@ class Vehicle extends Model
      */
     public function type()
     {
-        return $this->hasOne('App\VehicleType');
+        return $this->belongsTo('App\VehicleType', 'vehicle_type_id');
+    }
+
+    /**
+     * Gets the description of the vehicle
+     *
+     * @return str
+     */
+    public function getDescriptionAttribute()
+    {
+        return sprintf('%s %s %s', $this->year, $this->make->make, $this->model->model);
     }
 }
