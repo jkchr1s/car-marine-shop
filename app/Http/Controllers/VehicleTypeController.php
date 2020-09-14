@@ -18,7 +18,7 @@ class VehicleTypeController extends Controller
     {
         $types = VehicleType::orderBy('type')->get();
 
-        return view('vehicle.vehicle-type', [
+        return view('vehicle_type.index', [
             'types' => $types
         ]);
     }
@@ -30,7 +30,7 @@ class VehicleTypeController extends Controller
      */
     public function create()
     {
-        
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -60,7 +60,7 @@ class VehicleTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -71,7 +71,7 @@ class VehicleTypeController extends Controller
      */
     public function edit($id)
     {
-        echo "edit ".$id;
+        return response('Not Implemented', 501);
     }
 
     /**

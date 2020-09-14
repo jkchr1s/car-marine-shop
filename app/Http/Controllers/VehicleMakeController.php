@@ -27,7 +27,7 @@ class VehicleMakeController extends Controller
         }
         $types = VehicleType::orderBy('type')->get();
 
-        return view('vehicle.vehicle-make', [
+        return view('vehicle_make.index', [
             'makes' => $makes,
             'types' => $types,
             'filter' => $filter_name
@@ -41,7 +41,7 @@ class VehicleMakeController extends Controller
      */
     public function create()
     {
-        
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -71,7 +71,7 @@ class VehicleMakeController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -82,7 +82,7 @@ class VehicleMakeController extends Controller
      */
     public function edit($id)
     {
-        echo "edit ".$id;
+        return response('Not Implemented', 501);
     }
 
     /**
