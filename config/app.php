@@ -15,7 +15,7 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
-    'name' => 'Your Application Name',
+    'name' => 'Car/Marine Shop',
 
     /*
     |--------------------------------------------------------------------------
