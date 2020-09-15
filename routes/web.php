@@ -23,9 +23,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/api/vehicle/make', 'VehicleManagementController@getMakes');
-Route::get('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
-Route::delete('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
+// Route::get('/api/vehicle/make', 'VehicleManagementController@getMakes');
+// Route::get('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
+// Route::delete('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
 
 Route::group(['middleware' => 'auth'], function() {
    Route::resource('/vehicle_make', 'VehicleMakeController');
