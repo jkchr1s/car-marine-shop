@@ -12,7 +12,7 @@
       </div>
     </div>
     @foreach($customers as $customer)
-      <div class="row selectable" onclick="window.location='{{ route('customer.show', ['customer' => $customer->id]) }}';">
+      <div class="row selectable" onclick="window.location='{{ route('customer.show', $customer->id) }}';">
         <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-default">
             <div class="list-group">
