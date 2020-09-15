@@ -20,13 +20,21 @@ class Vehicle extends Model
     ];
 
     /**
+     * Get the related customer object
+     */
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer');
+    }
+
+    /**
      * Get the identification records associated with the vehicle.
      */
     public function identifications()
     {
         return $this->hasMany('App\VehicleIdentification');
     }
-    
+
     /**
      * Get the make record associated with the vehicle.
      */

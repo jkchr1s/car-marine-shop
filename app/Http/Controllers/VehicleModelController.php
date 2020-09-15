@@ -60,7 +60,7 @@ class VehicleModelController extends Controller
      */
     public function create()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -101,7 +101,7 @@ class VehicleModelController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -112,7 +112,7 @@ class VehicleModelController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -124,7 +124,7 @@ class VehicleModelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -136,11 +136,10 @@ class VehicleModelController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        if (is_numeric($id)) {
-            VehicleModel::destroy($id);
-        }
+        $model = VehicleModel::findOrFail($id);
+        $model->delete();
         return $request->ajax()
-            ? response('', 204)
+            ? response(['deleted' => $model])
             : redirect(route('vehicle_model.index'));
     }
 }

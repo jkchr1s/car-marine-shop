@@ -6,24 +6,53 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        {{ count($types) }} vehicle type{{ count($types) === 1 ? '' : 's' }} found.
+                        <p>{{ count($makes) }} vehicle make{{ count($makes) === 1 ? '' : 's' }} found.</p>
+
+                        <div class="btn-group">
+                            <a href="#" data-target="#" class="btn btn-raised dropdown-toggle" data-toggle="dropdown">
+                                {{ !empty($filter) ? $filter : 'Show All Types' }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach($types as $type)
+                                    <li><a href="/vehicle_make?type={{$type->id}}">Only show {{$type->type}}</a></li>
+                                @endforeach
+                                <li><a href="/vehicle_make">Show All</a></li>
+                            </ul>
+                        </div>
                     </div>
+                    {{--<div class="panel-body">--}}
+                        {{--<div class="form-group label-floating">--}}
+                            {{--<label class="control-label" for="focusedInput1">Write something to make the label float</label>--}}
+                            {{--<input class="form-control" id="focusedInput1" type="text">--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<script type="text/javascript">--}}
+                        {{--$('#focusedInput1').autocomplete({--}}
+                            {{--serviceUrl: '/api/vehicle/make',--}}
+                            {{--paramName: 'query',--}}
+                            {{--minChars: 0,--}}
+                            {{--onSelect: function (suggestion) {--}}
+                                {{--alert('You selected: ' + suggestion.value + ', ' + suggestion.data);--}}
+                            {{--}--}}
+                        {{--});--}}
+                    {{--</script>--}}
                 </div>
             </div>
         </div>
-        @foreach($types as $type)
-        <div class="row selectable" onclick="modifyItem({{ $type->id }}, '{{ str_replace("'", "&#39;", $type->type) }}');">
+        @foreach($makes as $make)
+        <div class="row selectable" onclick="modifyItem({{ $make->id }}, '{{ str_replace("'", "&#39;", $make->make) }}');">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="list-group">
                         <div class="list-group-item">
                             <div class="row-action-primary">
-                                <i class="material-icons">{{ isset($type->icon) && !empty($type->icon) ? $type->icon : 'assignment' }}</i>
+                                <i class="material-icons">{{$make->vehicle_type->icon}}</i>
                             </div>
                             <div class="row-content">
-                                <h4 class="list-group-item-heading">{{ $type->type }}</h4>
+                                <h4 class="list-group-item-heading">{{ $make->make }}</h4>
 
-                                <p class="list-group-item-text">Vehicle Type</p>
+                                <p class="list-group-item-text">{{$make->vehicle_type->type}} Make</p>
                             </div>
                         </div>
                         <div class="list-group-separator"></div>
@@ -43,9 +72,9 @@
             $('#modify-delete').unbind('click');
             $('#modify-delete').on('click', function(e) {
                 e.preventDefault();
-                console.log('/vehicle_type/' + id);
+                console.log('/vehicle_make/' + id);
                 $.ajax({
-                    url: '/vehicle_type/'+id,
+                    url: '/vehicle_make/'+id,
                     type: 'DELETE',
                     success: function(result) {
                         location.reload();
@@ -62,7 +91,7 @@
                 $('#modify-save').attr('disabled', 'disabled');
                 $('#modify-save').html('Saving');
                 $.ajax({
-                    url: '/vehicle_type/' + id,
+                    url: '/vehicle_make/' + id,
                     type: 'PUT',
                     data: $('#modify-form').serialize(),
                     success: function(result) {
@@ -89,36 +118,29 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Add Vehicle Type</h4>
+                    <h4 class="modal-title">Add Vehicle Make</h4>
                 </div>
-                <form method="POST" action="/vehicle_type">{{ csrf_field() }}
+                <form method="POST" action="/vehicle_make">{{ csrf_field() }}
                     <div class="modal-body">
                         <fieldset>
-                            <div class="form-group label-floating">
-                                <label for="vehicleType" class="control-label">Vehicle Type</label>
-                                <input type="text" class="form-control" id="vehicleType" name="type">
-                                <span class="help-block">Enter a description for the vehicle type.</span>
-                            </div>
-
                             <div class="form-group">
-                                <label for="vehicleTypeIcon">Icon</label>
-                                <select id="vehicleTypeIcon" class="form-control" name="icon">
-                                    <option value="directions_car">Car</option>
-                                    <option value="ac_unit">Air Conditioning Unit</option>
-                                    <option value="airport_shuttle">Airport Shuttle</option>
-                                    <option value="rv_hookup">RV Hookup</option>
-                                    <option value="train">Train</option>
-                                    <option value="local_gas_station">Gas Station</option>
-                                    <option value="local_car_wash">Car Wash</option>
-                                    <option value="directions_bike">Bicycle</option>
-                                    <option value="directions_boat">Boat</option>
-                                    <option value="motorcycle">Motorcycle</option>
-                                    <option value="shopping_cart">Shopping Cart</option>
-                                    <option value="radio">Radio</option>
-                                    <option value="directions_bus">Bus</option>
+                                <label for="inputType">Vehicle Type</label>
+                                <select id="inputType" class="form-control" name="vehicle_type_id">
+                                    @foreach($types as $type)
+                                    <option value="{{$type->id}}">{{$type->type}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+
+                            <div class="form-group label-floating">
+                                <label for="inputMake" class="control-label">Make</label>
+                                <input type="text" class="form-control" id="inputMake" name="make">
+                                <span class="help-block">Enter the make of the vehicle.</span>
+                            </div>
+
+
                         </fieldset>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -135,7 +157,7 @@
                 <form id="modify-form">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Modify Vehicle Type</h4>
+                        <h4 class="modal-title">Modify Vehicle Make</h4>
                     </div>
                     <div class="modal-body">
                         <fieldset>

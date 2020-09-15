@@ -17,20 +17,31 @@ class VehicleMakeController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->input('type');
-        $filter_name = 'Showing All Vehicle Types';
-        if (!empty($filter)) {
-            $makes = VehicleMake::where('vehicle_type_id', '=', intval($request->input('type')))->orderBy('make')->get();
-            $filter_name = 'Showing ' . VehicleType::findOrFail(intval($request->input('type')))->type;
-        } else {
-            $makes = VehicleMake::orderBy('make')->get();
-        }
+        // validate input
+        $filter = $request->validate([
+            'type' => ['nullable', 'integer', 'exists:vehicle_types,id'],
+        ]);
+
+        // fetch vehicle types
         $types = VehicleType::orderBy('type')->get();
 
-        return view('vehicle.vehicle-make', [
+        // handle filtering
+        if (isset($filter['type'])) {
+            $filterName = sprintf("Showing %s", $types->find($filter['type'])->type);
+            $makes = VehicleMake::where('vehicle_type_id', $filter['type'])
+                ->orderBy('make')
+                ->get();
+        } else {
+            $filterName = 'Showing All Vehicle Types';
+            $makes = VehicleMake::orderBy('make')
+                ->get();
+        }
+
+        // return view
+        return view('vehicle_make.index', [
             'makes' => $makes,
             'types' => $types,
-            'filter' => $filter_name
+            'filter' => $filterName,
         ]);
     }
 
@@ -41,7 +52,7 @@ class VehicleMakeController extends Controller
      */
     public function create()
     {
-        
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -52,15 +63,14 @@ class VehicleMakeController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has('make')) {
-            return response(['error' => 'You must specify make']);
-        } else {
-            $make = new VehicleMake();
-            $make->make = $request->input('make');
-            $make->vehicle_type_id = $request->input('type');
-            $make->save();
-            return redirect('/vehicle_make');
-        }
+        $data = $request->validate([
+            'vehicle_type_id' => ['required', 'integer', 'exists:vehicle_types,id'],
+            'make' => ['required', 'string'],
+        ]);
+        VehicleMake::create($data);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('vehicle_make.index', ['type' => $data['vehicle_type_id']]));
     }
 
     /**
@@ -71,7 +81,7 @@ class VehicleMakeController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -82,7 +92,7 @@ class VehicleMakeController extends Controller
      */
     public function edit($id)
     {
-        echo "edit ".$id;
+        return response('Not Implemented', 501);
     }
 
     /**

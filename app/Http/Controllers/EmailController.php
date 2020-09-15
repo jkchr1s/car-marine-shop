@@ -16,7 +16,7 @@ class EmailController extends Controller
      */
     public function index()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -26,7 +26,7 @@ class EmailController extends Controller
      */
     public function create()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -37,14 +37,15 @@ class EmailController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has('customer_id')) {
-            return response(['error' => 'You must specify customer_id']);
-        }
-        $item = new Email();
-        $item->customer_id = intval($request->input('customer_id'));
-        $item->email = $request->input('email');
-        $item->save();
-        return redirect('/customer/'.$request->input('customer_id'));
+        $data = $request->validate([
+            'customer_id' => ['required', 'integer', 'exists:customers,id'],
+            'email' => ['required', 'email'],
+        ]);
+
+        $email = Email::create($data);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('customer.show', $data['customer_id']));
     }
 
     /**
@@ -55,7 +56,7 @@ class EmailController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -66,7 +67,7 @@ class EmailController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -78,19 +79,23 @@ class EmailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $item = Email::find($id);
+        $item = Email::findOrFail($id);
+        $customer_id = $item->customer_id;
         $item->delete();
-        return response(['success' => true]);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('customer.show', ['customer' => $customer_id]));
     }
 }

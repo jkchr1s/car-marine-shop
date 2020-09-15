@@ -19,7 +19,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -108,7 +108,7 @@ class VehicleController extends Controller
         Vehicle::create($data);
         return $request->ajax()
             ? response(['success' => true])
-            : redirect(route('customer.show', ['customer' => $data['customer_id']]));
+            : redirect(route('customer.show', $data['customer_id']));
     }
 
     /**
@@ -119,7 +119,9 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('vehicle.show', [
+            'vehicle' => Vehicle::findOrFail($id),
+        ]);
     }
 
     /**
@@ -130,7 +132,7 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -142,7 +144,7 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -159,6 +161,6 @@ class VehicleController extends Controller
         $vehicle->delete();
         return $request->ajax()
             ? response(['success' => true])
-            : redirect(route('customer.show', ['customer' => $customerId]));
+            : redirect(route('customer.show', $customerId));
     }
 }
