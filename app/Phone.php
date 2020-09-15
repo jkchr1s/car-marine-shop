@@ -6,7 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    protected $fillable = ['customer_id', 'phone_type_id', 'number'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'customer_id',
+        'phone_type_id',
+        'number',
+    ];
 
     public function phone_type()
     {
