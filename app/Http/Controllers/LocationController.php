@@ -16,7 +16,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -26,7 +26,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -37,19 +37,19 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has('customer_id')) {
-            return response(['error' => 'You must specify customer_id']);
-        }
-        $item = new Location();
-        $item->customer_id = intval($request->input('customer_id'));
-        $item->location_type_id = intval($request->input('location_type_id'));
-        $item->address1 = $request->input('address_1');
-        $item->address2 = $request->has('address_2') ? $request->input('address_2') : '';
-        $item->city = $request->has('city') ? $request->input('city') : '';
-        $item->state = $request->has('state') ? $request->input('state') : '';
-        $item->zip = $request->has('zip') ? $request->input('zip') : '';
-        $item->save();
-        return redirect('/customer/'.$request->input('customer_id'));
+        $data = $request->validate([
+            'customer_id' => ['required', 'integer', 'exists:customers,id'],
+            'location_type_id' => ['required', 'integer', 'exists:location_types,id'],
+            'address1' => ['required', 'string'],
+            'address2' => ['nullable'],
+            'city' => ['required', 'string'],
+            'state' => ['required', 'string'],
+            'zip' => ['required', 'string'],
+        ]);
+        Location::create($data);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('customer.show', $data['customer_id']));
     }
 
     /**
@@ -60,7 +60,7 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -71,7 +71,7 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -83,19 +83,23 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $item = Location::find($id);
+        $item = Location::findOrFail($id);
+        $customerId = $item->customer_id;
         $item->delete();
-        return response(['success' => true]);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('customer.show', $customerId));
     }
 }

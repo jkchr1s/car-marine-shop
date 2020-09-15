@@ -59,7 +59,7 @@ class CustomerController extends Controller
         ]);
 
         $customer = Customer::create($data);
-        return redirect(route('customer.show', ['customer' => $customer->id]));
+        return redirect(route('customer.show', $data['customer_id']));
     }
 
     /**
@@ -94,7 +94,7 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**
@@ -106,7 +106,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response('Not Implemented', 501);
     }
 
     /**

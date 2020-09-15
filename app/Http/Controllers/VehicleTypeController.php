@@ -41,15 +41,14 @@ class VehicleTypeController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has('type')) {
-            return response(['error' => 'You must specify type']);
-        } else {
-            $type = new VehicleType();
-            $type->type = $request->input('type');
-            $type->icon = $request->input('icon');
-            $type->save();
-            return redirect('/vehicle_type');
-        }
+        $data = $request->validate([
+            'type' => ['required', 'string'],
+            'icon' => ['required', 'string'],
+        ]);
+        VehicleType::create($data);
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('vehicle_type.index'));
     }
 
     /**
@@ -83,25 +82,29 @@ class VehicleTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!$request->has('type')) {
-            return response(['error' => 'No type specified']);
-        }
-        $item = VehicleType::find($id);
-        $item->type = $request->input('type');
-        $result = $item->save();
-        return response(['modified' => $result]);
+        $data = $request->validate([
+            'type' => ['required', 'string'],
+        ]);
+        $item = VehicleType::findOrFail($id);
+        $item->type = $data['type'];
+        return $request->ajax()
+            ? response(['modified' => $item->save()])
+            : redirect(route('vehicle_type', $id));
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $item = VehicleType::find($id);
+        $item = VehicleType::findOrFail($id);
         $result = $item->delete();
-        return response(['deleted' => $result]);
+        return $request->ajax()
+            ? response(['deleted' => $result])
+            : redirect(route('vehicle_type.index'));
     }
 }
