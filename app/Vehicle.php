@@ -19,6 +19,9 @@ class Vehicle extends Model
         'year'
     ];
 
+    /**
+     * Get the related customer object
+     */
     public function customer()
     {
         return $this->belongsTo('App\Customer');
