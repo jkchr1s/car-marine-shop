@@ -125,7 +125,7 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="inputType">Vehicle Type</label>
-                                <select id="inputType" class="form-control" name="type">
+                                <select id="inputType" class="form-control" name="vehicle_type_id">
                                     @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->type}}</option>
                                     @endforeach

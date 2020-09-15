@@ -150,7 +150,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Add Email Address</h4>
                 </div>
-                <form method="POST" action="/email">{{ csrf_field() }}
+                <form method="POST" action="{{ route('email.store') }}">{{ csrf_field() }}
                     <input type="hidden" name="customer_id" value="{{ $customer_id }}">
                     <div class="modal-body">
                         <fieldset>
@@ -178,7 +178,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Add Phone Number</h4>
                 </div>
-                <form method="POST" action="/phone">{{ csrf_field() }}
+                <form method="POST" action="{{ route('phone.store') }}">{{ csrf_field() }}
                     <input type="hidden" name="customer_id" value="{{ $customer_id }}">
                     <div class="modal-body">
                         <fieldset>
@@ -193,7 +193,7 @@
 
                             <div class="form-group label-floating">
                                 <label for="phone" class="control-label">Phone Number</label>
-                                <input type="text" class="form-control" id="email" name="phone_number" required="required">
+                                <input type="tel" class="form-control" id="phone_number" name="number" required="required">
                                 <span class="help-block">Enter the customer's phone number.</span>
                             </div>
                         </fieldset>
@@ -233,31 +233,31 @@
 
                             <div class="form-group label-floating">
                                 <label for="address1" class="control-label">Address Line 1</label>
-                                <input type="text" class="form-control" id="address1" name="address_1" required="required">
+                                <input type="text" class="form-control" id="address1" name="address1" required>
                                 <span class="help-block">Enter the first line of the customer's address.</span>
                             </div>
 
                             <div class="form-group label-floating">
                                 <label for="address2" class="control-label">Address Line 2</label>
-                                <input type="text" class="form-control" id="address2" name="address_2">
+                                <input type="text" class="form-control" id="address2" name="address2">
                                 <span class="help-block">Enter the second line of the customer's address.</span>
                             </div>
 
                             <div class="form-group label-floating">
                                 <label for="city" class="control-label">City</label>
-                                <input type="text" class="form-control" id="city" name="city">
+                                <input type="text" class="form-control" id="city" name="city" required>
                                 <span class="help-block">Enter the city of the customer's address.</span>
                             </div>
 
                             <div class="form-group label-floating">
                                 <label for="state" class="control-label">State</label>
-                                <input type="text" class="form-control" id="state" name="state">
+                                <input type="text" class="form-control" id="state" name="state" required>
                                 <span class="help-block">Enter the state of the customer's address.</span>
                             </div>
 
                             <div class="form-group label-floating">
                                 <label for="zip" class="control-label">Zip Code</label>
-                                <input type="text" class="form-control" id="zip" name="zip">
+                                <input type="text" class="form-control" id="zip" name="zip" required>
                                 <span class="help-block">Enter the zip code of the customer's address.</span>
                             </div>
                         </fieldset>

@@ -96,7 +96,7 @@
                         <fieldset>
                             <div class="form-group label-floating">
                                 <label for="vehicleType" class="control-label">Vehicle Type</label>
-                                <input type="text" class="form-control" id="vehicleType" name="type">
+                                <input type="text" class="form-control" id="vehicleType" name="type" required>
                                 <span class="help-block">Enter a description for the vehicle type.</span>
                             </div>
 

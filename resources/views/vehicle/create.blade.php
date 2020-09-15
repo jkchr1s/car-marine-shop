@@ -6,7 +6,7 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <div class="panel-body">
-            <a href="{{ route('customer.show', ['customer' => $customer->id]) }}">{{ $customer->display_name }}</a> > New Vehicle
+            <a href="{{ route('customer.show', $customer->id) }}">{{ $customer->display_name }}</a> > New Vehicle
           </div>
         </div>
       </div>
