@@ -8,7 +8,7 @@
                     <div class="panel-body">
                         <h2>
                             <i class="material-icons">{{ $customer_type->icon }}</i>
-                            {{ $customer_type->type == 'Business' ? $company : $first_name . ' ' . $last_name }}
+                            {{ $company && !empty($company) ? $company : $first_name . ' ' . $last_name }}
                         </h2>
                         @if($customer_type == 'Business' && (strlen($first_name) > 0 || strlen($last_name) > 0))
                             {{$first_name}} {{$last_name}}
@@ -124,6 +124,18 @@
                             <p>This customer doesn't have any vehicles.</p>
                         @endif
                         <a href="{{ route('vehicle.create') }}?customer_id={{ $customer_id }}" class="btn btn-default">Add New Vehicle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <button class="btn btn-raised" onclick="showDeleteConfirmation('customer', {{ $customer_id }});">
+                            Delete Customer
+                        </button>
                     </div>
                 </div>
             </div>
@@ -306,7 +318,11 @@
                     url: '/' + encodeURIComponent(type) + '/' + encodeURIComponent(id),
                     type: 'DELETE',
                     success: function(result) {
-                        location.reload();
+                        if (type === 'customer') {
+                            window.location.href = '{{ route('customer.index') }}';
+                        } else {
+                            location.reload();
+                        }
                     },
                     error: function(err) {
                         alert('There was an error deleting this item.');

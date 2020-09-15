@@ -51,13 +51,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-       $customer = new Customer();
-       $customer->customer_type_id = intval($request->input('customer_type'));
-       $customer->first_name = $request->has('first_name') ? $request->input('first_name') : '';
-       $customer->last_name = $request->has('last_name') ? $request->input('last_name') : '';
-       $customer->company = $request->has('company') ? $request->input('company') : '';
-       $customer->save();
-       return redirect('/customer/'.$customer->id);
+        $data = $request->validate([
+            'customer_type_id' => ['required', 'integer', 'exists:customer_types,id'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'company' => ['nullable', 'string'],
+        ]);
+
+        $customer = Customer::create($data);
+        return redirect(route('customer.show', ['customer' => $customer->id]));
     }
 
     /**
@@ -110,11 +112,16 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        $customer->delete();
+        return $request->ajax()
+            ? response(['success' => true])
+            : redirect(route('customer.index'));
     }
 }

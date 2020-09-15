@@ -6,13 +6,13 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
           <div class="panel-body">
-            {{ count($customers) }} customer{{ count($customers) === 1 ? '' : 's' }} found.
+            {{ $customers->count() }} customer{{ $customers->count() === 1 ? '' : 's' }} found.
           </div>
         </div>
       </div>
     </div>
     @foreach($customers as $customer)
-      <div class="row selectable" onclick="window.location='/customer/{{$customer->id}}';">
+      <div class="row selectable" onclick="window.location='{{ route('customer.show', ['customer' => $customer->id]) }}';">
         <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-default">
             <div class="list-group">
@@ -101,12 +101,12 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h4 class="modal-title">Add New Customer</h4>
         </div>
-        <form method="POST" action="/customer">{{ csrf_field() }}
+        <form method="POST" action="{{ route('customer.store') }}">{{ csrf_field() }}
           <div class="modal-body">
             <fieldset>
               <div class="form-group">
                 <label for="customerType">Customer Type</label>
-                <select id="customerType" class="form-control" name="customer_type">
+                <select id="customerType" class="form-control" name="customer_type_id">
                   @foreach($types as $type)
                     <option value="{{$type->id}}">{{$type->type}}</option>
                   @endforeach
@@ -114,12 +114,12 @@
               </div>
               <div class="form-group label-floating">
                 <label for="firstName" class="control-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="first_name">
+                <input type="text" class="form-control" id="firstName" name="first_name" required>
                 <span class="help-block">Enter the customer's first name.</span>
               </div>
               <div class="form-group label-floating">
                 <label for="lastName" class="control-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="last_name">
+                <input type="text" class="form-control" id="lastName" name="last_name" required>
                 <span class="help-block">Enter the customer's last name.</span>
               </div>
               <div class="form-group label-floating">
