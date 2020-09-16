@@ -39,12 +39,16 @@ class Handler extends ExceptionHandler
 
         // are we in the request lifecycle?
         if (! app()->runningInConsole() && ! app()->runningUnitTests()) {
-            // we are, fetch the request from the service container
-            $request = app(Request::class);
+            // try to fetch the request from the service container
+            try {
+                $request = app(Request::class);
 
-            if ($request && $request->hasHeader(RequestId::REQUEST_ID_HEADER)) {
-                $reqId = $request->headers->get(RequestId::REQUEST_ID_HEADER);
-                $context['reqId'] = $reqId;
+                // if we have the request id header on the request, add it to the context
+                if ($request && $request->hasHeader(RequestId::REQUEST_ID_HEADER)) {
+                    $reqId = $request->headers->get(RequestId::REQUEST_ID_HEADER);
+                    $context['reqId'] = $reqId;
+                }
+            } catch (\Exception $e) {
             }
         }
 
