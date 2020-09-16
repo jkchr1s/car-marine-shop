@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Http\Middleware\RequestId;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -25,6 +27,33 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    /**
+     * Get the default context variables for logging.
+     *
+     * @return array
+     */
+    protected function context()
+    {
+        $context = parent::context();
+
+        // are we in the request lifecycle?
+        if (! app()->runningInConsole() && ! app()->runningUnitTests()) {
+            // try to fetch the request from the service container
+            try {
+                $request = app(Request::class);
+
+                // if we have the request id header on the request, add it to the context
+                if ($request && $request->hasHeader(RequestId::REQUEST_ID_HEADER)) {
+                    $reqId = $request->headers->get(RequestId::REQUEST_ID_HEADER);
+                    $context['reqId'] = $reqId;
+                }
+            } catch (\Exception $e) {
+            }
+        }
+
+        return $context;
+    }
 
     /**
      * Report or log an exception.
