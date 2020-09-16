@@ -94,6 +94,22 @@ php artisan user:create
 (simply answer the questions as prompted)
 
 
+### Building with Docker
+You can build a demo project with Docker by running:
+```
+docker build . -t auto-marine-shop:latest
+```
+
+After building, start up a demo:
+```
+sudo docker run --name auto-marine-shop --rm -p80:80 auto-marine-shop:latest
+```
+While the demo container is running, create a user:
+```
+sudo docker exec -it auto-marine-shop /usr/bin/sudo -u www-data php artisan user:create
+```
+
+
 ## Start the application
 Now that we have installed our depenencies, migrated, seeded the database, and created a user account, we're ready to start the app! To use the built-in development server, run:
 ```bash
