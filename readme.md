@@ -137,6 +137,18 @@ php artisan serve
 and [open the application in your browser](http://localhost:8000)
 
 
+## Code formatting
+To lint the code formatting, run:
+```bash
+composer lint
+```
+
+If you are satisfied with the suggestions, run:
+```bash
+composer fix
+```
+
+
 ## Additional Notes
 My mentality has changed a lot since originally writing (and abandoning) this project. Some notes:
 * Several JavaScript assets were included in the [public folder](public/) with no documentation of where these came from. This is bad, and I no longer do this.
