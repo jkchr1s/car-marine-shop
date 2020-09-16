@@ -17,7 +17,7 @@ class VehicleModelSeeder extends Seeder
     {
         $makes = VehicleMake::select('id', 'vehicle_type_id')
             ->get()
-            ->each(function(VehicleMake $make) {
+            ->each(function (VehicleMake $make) {
                 VehicleModel::create([
                     'vehicle_type_id' => $make->vehicle_type_id,
                     'vehicle_make_id' => $make->id,

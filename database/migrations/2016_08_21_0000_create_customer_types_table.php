@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCustomerTypesTable extends Migration
 {
@@ -18,8 +18,6 @@ class CreateCustomerTypesTable extends Migration
             $table->string('icon')->default('unchecked');
             $table->timestamps();
         });
-
-
     }
 
     /**

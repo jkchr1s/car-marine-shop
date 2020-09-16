@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\VehicleMake;
-use App\VehicleType;
 use App\VehicleModel;
+use App\VehicleType;
 use Illuminate\Http\Request;
 
 class VehicleModelController extends Controller
@@ -22,14 +22,14 @@ class VehicleModelController extends Controller
                 'nullable',
                 'integer',
                 'exclude-if:vehicle_type_id,',
-                'exists:vehicle_types,id'
+                'exists:vehicle_types,id',
             ],
             'vehicle_make_id' => [
                 'nullable',
                 'integer',
                 'exclude-if:vehicle_make_id,',
-                'exists:vehicle_makes,id'
-            ]
+                'exists:vehicle_makes,id',
+            ],
         ]);
 
         // fetch our vehicle models, and apply any filters that are present
@@ -76,18 +76,19 @@ class VehicleModelController extends Controller
                 'nullable',
                 'integer',
                 'exclude-if:vehicle_type_id,',
-                'exists:vehicle_types,id'
+                'exists:vehicle_types,id',
             ],
             'vehicle_make_id' => [
                 'nullable',
                 'integer',
                 'exclude-if:vehicle_make_id,',
-                'exists:vehicle_makes,id'
+                'exists:vehicle_makes,id',
             ],
-            'model' => ['required', 'string']
+            'model' => ['required', 'string'],
         ]);
 
         $model = VehicleModel::create($data);
+
         return $request->ajax()
             ? response('', 201)
             : redirect(route('vehicle_model.show', ['vehicle_model' => $model->id]));
@@ -138,6 +139,7 @@ class VehicleModelController extends Controller
     {
         $model = VehicleModel::findOrFail($id);
         $model->delete();
+
         return $request->ajax()
             ? response(['deleted' => $model])
             : redirect(route('vehicle_model.index'));

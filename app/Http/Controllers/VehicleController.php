@@ -38,18 +38,18 @@ class VehicleController extends Controller
             'vehicle_make_id' => [
                 'exclude-if:vehicle_type_id,',
                 'exclude-if:vehicle_make_id,',
-                'exists:vehicle_makes,id'
+                'exists:vehicle_makes,id',
             ],
             'vehicle_model_id' => [
                 'exclude-if:vehicle_type_id,',
                 'exclude-if:vehicle_make_id,',
                 'exclude-if:vehicle_model_id,',
-            ]
+            ],
         ]);
 
         // process vehicle types
         $types = VehicleType::select('id', 'type')->orderBy('type')->get();
-        if (!isset($data['vehicle_type_id']) && $types->first()) {
+        if (! isset($data['vehicle_type_id']) && $types->first()) {
             // default to the first match
             $data['vehicle_type_id'] = $types->first()->id;
         }
@@ -62,7 +62,7 @@ class VehicleController extends Controller
                 ->orderBy('make')
                 ->get()
             : collect([]);
-        if ((!isset($data['vehicle_make_id']) || !$makes->find($data['vehicle_make_id'])) && $makes->first()) {
+        if ((! isset($data['vehicle_make_id']) || ! $makes->find($data['vehicle_make_id'])) && $makes->first()) {
             // default to the first match
             $data['vehicle_make_id'] = $makes->first()->id;
         }
@@ -75,7 +75,7 @@ class VehicleController extends Controller
                 ->orderBy('model')
                 ->get()
             : collect([]);
-        if ((!isset($data['vehicle_model_id']) || !$models->find($data['vehicle_model_id'])) && $models->first()) {
+        if ((! isset($data['vehicle_model_id']) || ! $models->find($data['vehicle_model_id'])) && $models->first()) {
             // default to the first match
             $data['vehicle_model_id'] = $models->first()->id;
         }
@@ -106,6 +106,7 @@ class VehicleController extends Controller
             'year' => ['required', 'string', 'regex:/\d{4}/'],
         ]);
         Vehicle::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $data['customer_id']));
@@ -159,6 +160,7 @@ class VehicleController extends Controller
         $vehicle = Vehicle::findOrFail(intval($id));
         $customerId = $vehicle->customer_id;
         $vehicle->delete();
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $customerId));

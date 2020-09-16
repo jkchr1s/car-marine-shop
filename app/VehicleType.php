@@ -17,11 +17,12 @@ class VehicleType extends Model
     ];
 
     /**
-     * One-to-many relationship for vehicle makes
+     * One-to-many relationship for vehicle makes.
      *
      * @return void
      */
-    public function vehicle_makes() {
+    public function vehicle_makes()
+    {
         return $this->hasMany('App\VehicleMake');
     }
 }

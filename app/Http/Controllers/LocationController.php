@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Location;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class LocationController extends Controller
 {
@@ -47,6 +46,7 @@ class LocationController extends Controller
             'zip' => ['required', 'string'],
         ]);
         Location::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $data['customer_id']));
@@ -98,6 +98,7 @@ class LocationController extends Controller
         $item = Location::findOrFail($id);
         $customerId = $item->customer_id;
         $item->delete();
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $customerId));

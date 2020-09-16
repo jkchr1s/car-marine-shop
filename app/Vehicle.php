@@ -16,11 +16,11 @@ class Vehicle extends Model
         'vehicle_type_id',
         'vehicle_make_id',
         'vehicle_model_id',
-        'year'
+        'year',
     ];
 
     /**
-     * Get the related customer object
+     * Get the related customer object.
      */
     public function customer()
     {
@@ -76,9 +76,9 @@ class Vehicle extends Model
     }
 
     /**
-     * Gets the description of the vehicle
+     * Gets the description of the vehicle.
      *
-     * @return str
+     * @return string
      */
     public function getDescriptionAttribute()
     {

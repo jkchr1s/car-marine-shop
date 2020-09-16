@@ -27,13 +27,13 @@ Route::get('/home', 'HomeController@index');
 // Route::get('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
 // Route::delete('/api/vehicle/make/{id}', 'VehicleManagementController@getMake');
 
-Route::group(['middleware' => 'auth'], function() {
-   Route::resource('/vehicle_make', 'VehicleMakeController');
-   Route::resource('/vehicle_type', 'VehicleTypeController');
-   Route::resource('/vehicle_model', 'VehicleModelController');
-   Route::resource('/customer', 'CustomerController');
-   Route::resource('/email', 'EmailController');
-   Route::resource('/phone', 'PhoneController');
-   Route::resource('/location', 'LocationController');
-   Route::resource('/vehicle', 'VehicleController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/vehicle_make', 'VehicleMakeController');
+    Route::resource('/vehicle_type', 'VehicleTypeController');
+    Route::resource('/vehicle_model', 'VehicleModelController');
+    Route::resource('/customer', 'CustomerController');
+    Route::resource('/email', 'EmailController');
+    Route::resource('/phone', 'PhoneController');
+    Route::resource('/location', 'LocationController');
+    Route::resource('/vehicle', 'VehicleController');
 });

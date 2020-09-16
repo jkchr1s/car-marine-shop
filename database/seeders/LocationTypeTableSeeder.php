@@ -15,15 +15,15 @@ class LocationTypeTableSeeder extends Seeder
     public function run()
     {
         DB::table('location_types')->insert([
-            'type' => 'Billing Address'
+            'type' => 'Billing Address',
         ]);
 
         DB::table('location_types')->insert([
-            'type' => 'Mailing Address'
+            'type' => 'Mailing Address',
         ]);
 
         DB::table('location_types')->insert([
-            'type' => 'Vehicle Location'
+            'type' => 'Vehicle Location',
         ]);
     }
 }

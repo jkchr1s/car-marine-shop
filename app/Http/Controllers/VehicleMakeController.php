@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\VehicleMake;
 use App\VehicleType;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class VehicleMakeController extends Controller
 {
@@ -27,7 +26,7 @@ class VehicleMakeController extends Controller
 
         // handle filtering
         if (isset($filter['type'])) {
-            $filterName = sprintf("Showing %s", $types->find($filter['type'])->type);
+            $filterName = sprintf('Showing %s', $types->find($filter['type'])->type);
             $makes = VehicleMake::where('vehicle_type_id', $filter['type'])
                 ->orderBy('make')
                 ->get();
@@ -68,6 +67,7 @@ class VehicleMakeController extends Controller
             'make' => ['required', 'string'],
         ]);
         VehicleMake::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('vehicle_make.index', ['type' => $data['vehicle_type_id']]));
@@ -104,12 +104,13 @@ class VehicleMakeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!$request->has('make')) {
+        if (! $request->has('make')) {
             return response(['error' => 'No make specified']);
         }
         $item = VehicleMake::find($id);
         $item->type = $request->input('make');
         $result = $item->save();
+
         return response(['modified' => $result]);
     }
 
@@ -123,6 +124,7 @@ class VehicleMakeController extends Controller
     {
         $item = VehicleMake::find($id);
         $result = $item->delete();
+
         return response(['deleted' => $result]);
     }
 }

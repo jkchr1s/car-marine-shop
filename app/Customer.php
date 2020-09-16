@@ -9,7 +9,7 @@ class Customer extends Model
     protected $fillable = ['first_name', 'last_name', 'company', 'customer_type_id'];
 
     /**
-     * Get the customer type associated with the customer
+     * Get the customer type associated with the customer.
      */
     public function customer_type()
     {
@@ -49,9 +49,9 @@ class Customer extends Model
     }
 
     /**
-     * Gets the display name for the customer
+     * Gets the display name for the customer.
      *
-     * @return str
+     * @return string
      */
     public function getDisplayNameAttribute()
     {

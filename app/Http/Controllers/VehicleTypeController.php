@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\VehicleType;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class VehicleTypeController extends Controller
 {
@@ -19,7 +18,7 @@ class VehicleTypeController extends Controller
         $types = VehicleType::orderBy('type')->get();
 
         return view('vehicle_type.index', [
-            'types' => $types
+            'types' => $types,
         ]);
     }
 
@@ -46,6 +45,7 @@ class VehicleTypeController extends Controller
             'icon' => ['required', 'string'],
         ]);
         VehicleType::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('vehicle_type.index'));
@@ -87,6 +87,7 @@ class VehicleTypeController extends Controller
         ]);
         $item = VehicleType::findOrFail($id);
         $item->type = $data['type'];
+
         return $request->ajax()
             ? response(['modified' => $item->save()])
             : redirect(route('vehicle_type', $id));
@@ -103,6 +104,7 @@ class VehicleTypeController extends Controller
     {
         $item = VehicleType::findOrFail($id);
         $result = $item->delete();
+
         return $request->ajax()
             ? response(['deleted' => $result])
             : redirect(route('vehicle_type.index'));
