@@ -8,7 +8,7 @@ Homestead.json
 .env
 .DS_Store
 .idea
-composer.lock
 .bash_history
 .composer
 .phpunit.*
+.php_cs.cache

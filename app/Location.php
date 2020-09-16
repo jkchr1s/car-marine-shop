@@ -22,7 +22,7 @@ class Location extends Model
     ];
 
     /**
-     * Get the customer type associated with the customer
+     * Get the customer type associated with the customer.
      */
     public function location_type()
     {

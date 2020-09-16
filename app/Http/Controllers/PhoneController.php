@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests;
 use App\Phone;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class PhoneController extends Controller
 {
@@ -43,6 +42,7 @@ class PhoneController extends Controller
             'number' => ['required', 'string'],
         ]);
         Phone::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $data['customer_id']));
@@ -94,6 +94,7 @@ class PhoneController extends Controller
         $item = Phone::findOrFail($id);
         $customerId = $item->customer_id;
         $item->delete();
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $customerId));

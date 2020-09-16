@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\CustomerType;
+use App\Http\Requests;
 use App\LocationType;
 use App\PhoneType;
-use Log;
-use App\Customer;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use Log;
 
 class CustomerController extends Controller
 {
@@ -29,7 +28,7 @@ class CustomerController extends Controller
 
         return view('customer.customers-all', [
             'customers' => $customers,
-            'types' => $types
+            'types' => $types,
         ]);
     }
 
@@ -59,6 +58,7 @@ class CustomerController extends Controller
         ]);
 
         $customer = Customer::create($data);
+
         return redirect(route('customer.show', $data['customer_id']));
     }
 
@@ -71,6 +71,7 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = Customer::findOrFail($id);
+
         return view('customer.customer', [
             'first_name' => $customer->first_name,
             'last_name' => $customer->last_name,
@@ -82,7 +83,7 @@ class CustomerController extends Controller
             'vehicles' => $customer->vehicles,
             'customer_id' => $id,
             'phone_types' => PhoneType::orderBy('type')->get(),
-            'location_types' => LocationType::orderBy('type')->get()
+            'location_types' => LocationType::orderBy('type')->get(),
         ]);
     }
 
@@ -120,6 +121,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $customer->delete();
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.index'));

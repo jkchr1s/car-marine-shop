@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Response Time Logger Middleware
+ * Response Time Logger Middleware.
  *
  * This middleware logs response times for each request in order to collect telemetry and trend response times.
  * You can alert on this value in the case that the response times increase unexpectedly.

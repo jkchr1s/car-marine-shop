@@ -65,7 +65,7 @@ class CreateUserCommand extends Command
         $user = User::create([
             'email' => $email,
             'name' => $name,
-            'password' => Hash::make($password)
+            'password' => Hash::make($password),
         ]);
 
         $this->output->success(sprintf('Created user %s with id %d', $user->email, $user->id));

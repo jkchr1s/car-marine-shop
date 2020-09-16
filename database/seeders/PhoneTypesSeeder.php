@@ -15,15 +15,15 @@ class PhoneTypesSeeder extends Seeder
     public function run()
     {
         DB::table('phone_types')->insert([
-            'type' => 'Cell'
+            'type' => 'Cell',
         ]);
 
         DB::table('phone_types')->insert([
-            'type' => 'Home'
+            'type' => 'Home',
         ]);
 
         DB::table('phone_types')->insert([
-            'type' => 'Work'
+            'type' => 'Work',
         ]);
     }
 }

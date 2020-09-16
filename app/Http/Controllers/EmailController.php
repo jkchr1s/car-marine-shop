@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Email;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class EmailController extends Controller
 {
@@ -43,6 +42,7 @@ class EmailController extends Controller
         ]);
 
         $email = Email::create($data);
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', $data['customer_id']));
@@ -94,6 +94,7 @@ class EmailController extends Controller
         $item = Email::findOrFail($id);
         $customer_id = $item->customer_id;
         $item->delete();
+
         return $request->ajax()
             ? response(['success' => true])
             : redirect(route('customer.show', ['customer' => $customer_id]));

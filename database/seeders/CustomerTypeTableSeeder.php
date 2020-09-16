@@ -16,12 +16,12 @@ class CustomerTypeTableSeeder extends Seeder
     {
         DB::table('customer_types')->insert([
             'type' => 'Personal',
-            'icon' => 'person'
+            'icon' => 'person',
         ]);
 
         DB::table('customer_types')->insert([
             'type' => 'Business',
-            'icon' => 'business'
+            'icon' => 'business',
         ]);
     }
 }

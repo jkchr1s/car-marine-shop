@@ -26,8 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         $customerCount = Customer::all()->count();
+
         return view('home', [
-            'customerCount' => $customerCount
+            'customerCount' => $customerCount,
         ]);
     }
 }
