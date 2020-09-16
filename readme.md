@@ -33,6 +33,8 @@ Based on the conversation we had, I am pretending that this abandoned project of
     7. [Implement middleware to track requests and response times](https://github.com/jkchr1s/car-marine-shop/commit/d561bc0abca042664da12ccc49adf2044d7683bd) to assist with catching issues with slow responses -- useful for telemetry, bug tracking/referring to logs, and trending times to detect issues
     8. Documentation
     9. Docker demo
+    10. Add [code formatter and linting](https://github.com/jkchr1s/car-marine-shop/pull/35)
+    11. [Log request id on exception to correlate error messages in logs with the request](https://github.com/jkchr1s/car-marine-shop/pull/36)
 5. To-do:
     1. Unit tests
     2. Integration tests
