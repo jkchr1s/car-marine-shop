@@ -1,0 +1,16 @@
+/vendor
+/node_modules
+/public/storage
+/public/js/app.js
+/public/mix-manifest.json
+Homestead.yaml
+Homestead.json
+.env
+.DS_Store
+.idea
+composer.lock
+.bash_history
+.composer
+.phpunit.*
+.git*
+model\ EER.mwb

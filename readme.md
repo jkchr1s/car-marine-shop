@@ -24,6 +24,41 @@ Based on the conversation we had, I am pretending that this abandoned project of
     9. [Upgrade from Laravel 7 to 8](https://github.com/jkchr1s/car-marine-shop/pull/9)
 3. Document procedure to start up the application
 4. Add some new features
+    1. [Validate inputs on controllers](https://github.com/jkchr1s/car-marine-shop/issues/30)
+    2. [Allow deletion of customer records](https://github.com/jkchr1s/car-marine-shop/issues/28)
+    3. [Implmented show customer](https://github.com/jkchr1s/car-marine-shop/issues/25)
+    4. [Display error messages in UI](https://github.com/jkchr1s/car-marine-shop/issues/24)
+    5. [Modernize JS build process](https://github.com/jkchr1s/car-marine-shop/issues/16)
+    6. [Implemented adding vehicles for customers](https://github.com/jkchr1s/car-marine-shop/issues/13)
+    7. [Implement middleware to track requests and response times](https://github.com/jkchr1s/car-marine-shop/commit/d561bc0abca042664da12ccc49adf2044d7683bd) to assist with catching issues with slow responses -- useful for telemetry, bug tracking/referring to logs, and trending times to detect issues
+    8. Documentation
+    9. Docker demo
+5. To-do:
+    1. Unit tests
+    2. Integration tests
+    3. Update EER diagram
+    4. Evaluate and optimize ORM queries for relationships
+    5. Update exception handler to log request IDs for correlation
+
+
+## Running the demo with Docker
+You can build the demo project with Docker by running:
+```
+docker build . -t auto-marine-shop:latest
+```
+
+After building, start up a demo:
+```
+docker run --name auto-marine-shop --rm -p 8080:80 auto-marine-shop:latest
+```
+(you can replace `8080` with the port you wish to bind on your local machine -- Apache will be listening on port 80 in the container)
+
+While the demo container is running, create a user:
+```
+docker exec -it auto-marine-shop /usr/bin/sudo -u www-data php artisan user:create
+```
+
+If you've used the default port, you can [open the app up in your browser](http://localhost:8080) and log in with the user you created.
 
 
 ## Requirements
