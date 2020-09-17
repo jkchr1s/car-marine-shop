@@ -63,5 +63,6 @@ RUN composer install --no-cache \
     && touch /var/www/html/database.sqlite \
     && chown -R www-data:root /var/www/html \
     && sudo -u www-data php artisan key:generate \
+    && sudo -u www-data vendor/bin/phpunit \
     && sudo -u www-data php artisan migrate \
     && sudo -u www-data php artisan db:seed

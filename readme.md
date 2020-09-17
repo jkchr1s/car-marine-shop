@@ -47,6 +47,7 @@ You can build the demo project with Docker by running:
 ```
 docker build . -t auto-marine-shop:latest
 ```
+(this build will also run tests, so if any tests fail, the Docker build will fail)
 
 After building, start up a demo:
 ```
