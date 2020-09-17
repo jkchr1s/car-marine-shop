@@ -23,7 +23,8 @@ class VehicleTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'type' => $this->faker->catchPhrase(),
+            'icon' => collect(['directions_boat', 'directions_car', 'motorcycle', 'directions_bus'])->random(),
         ];
     }
 }

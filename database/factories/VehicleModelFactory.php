@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\VehicleMake;
 use App\VehicleModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -22,8 +23,12 @@ class VehicleModelFactory extends Factory
      */
     public function definition()
     {
+        $make = VehicleMake::factory()->create();
+
         return [
-            //
+            'vehicle_type_id' => $make->vehicle_type_id,
+            'vehicle_make_id' => $make->id,
+            'model' => $this->faker->catchPhrase(),
         ];
     }
 }

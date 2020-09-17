@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\VehicleMake;
+use App\VehicleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,7 +24,9 @@ class VehicleMakeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'vehicle_type_id' => VehicleType::factory()->create()->id,
+            'make' => $this->faker->company(),
+            'icon' => collect(['directions_boat', 'directions_car', 'motorcycle', 'directions_bus'])->random(),
         ];
     }
 }
