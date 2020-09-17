@@ -113,7 +113,7 @@ class LocationTest extends TestCase
 
     public function testUpdate()
     {
-        // create mock customer
+        // create mock object
         $target = Location::factory()->create();
         $update = Location::factory()->make()->getAttributes();
 
@@ -135,6 +135,7 @@ class LocationTest extends TestCase
         $this->delete(route('location.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
+        $this->assertDatabaseHas('locations', $toDel->getAttributes());
 
         // authed
         $this->actingAs($this->user)

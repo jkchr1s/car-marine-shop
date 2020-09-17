@@ -105,7 +105,7 @@ class EmailTest extends TestCase
 
     public function testUpdate()
     {
-        // create mock customer
+        // create mock object
         $target = Email::factory()->create();
         $update = [
             'email' => $this->faker->safeEmail(),
@@ -129,12 +129,13 @@ class EmailTest extends TestCase
         $this->delete(route('email.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
+        $this->assertDatabaseHas('emails', $toDel->getAttributes());
 
         // authed
         $this->actingAs($this->user)
             ->delete(route('email.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect(route('customer.show', $toDel->customer->id));
-        $this->assertDatabaseMissing('customers', $toDel->getAttributes());
+        $this->assertDatabaseMissing('emails', $toDel->getAttributes());
     }
 }
