@@ -84,13 +84,18 @@ class VehicleTypeController extends Controller
     {
         $data = $request->validate([
             'type' => ['required', 'string'],
+            'icon' => ['nullable'],
         ]);
         $item = VehicleType::findOrFail($id);
         $item->type = $data['type'];
+        if (isset($data['icon']) && ! empty($data['icon'])) {
+            $item->icon = $data['icon'];
+        }
+        $modified = $item->save();
 
         return $request->ajax()
-            ? response(['modified' => $item->save()])
-            : redirect(route('vehicle_type', $id));
+            ? response(['modified' => $modified])
+            : redirect(route('vehicle_type.index'));
     }
 
     /**
