@@ -65,9 +65,9 @@
     <!-- js functions -->
     <script type="text/javascript">
         function modifyItem(id, value) {
-            $('#modifyType').val(value);
+            $('#inputmake').val(value);
             $('#modify-item').modal('toggle');
-            $('#modifyType').focus();
+            $('#inputmake').focus();
 
             $('#modify-delete').unbind('click');
             $('#modify-delete').on('click', function(e) {
@@ -162,10 +162,10 @@
                     <div class="modal-body">
                         <fieldset>
                             <div class="form-group">
-                                <label for="inputType" class="col-md-2 control-label">Type</label>
+                                <label for="inputType" class="col-md-2 control-label">Make</label>
 
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control" id="modifyType" placeholder="Vehicle Type" name="type">
+                                    <input type="text" class="form-control" id="modifyType" placeholder="Vehicle Make" name="make">
                                 </div>
                             </div>
                         </fieldset>

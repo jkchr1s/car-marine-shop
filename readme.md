@@ -37,6 +37,7 @@ Based on the conversation we had, I am pretending that this abandoned project of
     11. [Add tests for Email](https://github.com/jkchr1s/car-marine-shop/pull/38)
     12. [Add tests for Location](https://github.com/jkchr1s/car-marine-shop/pull/39)
     13. [Add tests for Phone](https://github.com/jkchr1s/car-marine-shop/pull/40)
+    14. [Add tests for Vehicle, VehicleType, VehicleMake, VehicleModel](https://github.com/jkchr1s/car-marine-shop/pull/41)
 5. To-do:
     1. Unit tests
     2. Integration tests
@@ -173,3 +174,4 @@ My mentality has changed a lot since originally writing (and abandoning) this pr
 * Error handling needs to be refactored
 * Optimize queries so that related models don't perform multiple queries
 * This application is still incomplete. It's not possible for me to complete it over a weekend, but hopefully you agree that it's good to see me in action picking up something that I haven't touched in 2016, updating the core framwork, and adding new features to it. I'd love to show it to you, discuss things that are wrong with it, things I'd do differently, etc.
+* The [Vehicle model](app/Vehicle.php) really only needs `vehicle_model_id`, as it provides `vehicle_type_id` and `vehicle_make_id`. This should be refactored.
