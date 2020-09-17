@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Email;
+use App\Phone;
 use App\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class EmailTest extends TestCase
+class PhoneTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,10 +23,13 @@ class EmailTest extends TestCase
         $this->user = User::factory()->create();
 
         // create mock email
-        $this->email = Email::factory()->create();
+        $this->phone = Phone::factory()->create();
 
         // get reference to mock customer
-        $this->customer = $this->email->customer;
+        $this->customer = $this->phone->customer;
+
+        // get reference to mock phone type
+        $this->phoneType = $this->phone->phone_type;
 
         $this->faker = Factory::create();
     }
@@ -34,108 +37,109 @@ class EmailTest extends TestCase
     public function testIndex()
     {
         // check unauthenticated
-        $this->get(route('email.index'))
+        $this->get(route('phone.index'))
             ->assertStatus(302)
             ->assertRedirect('/login');
 
         // check authenticated
         $this->actingAs($this->user)
-            ->get(route('email.index'))
+            ->get(route('phone.index'))
             ->assertStatus(501);
     }
 
     public function testCreate()
     {
         // check unauthenticated
-        $this->get(route('email.create'))
+        $this->get(route('phone.create'))
             ->assertStatus(302)
             ->assertRedirect('/login');
 
         // check authenticated
         $this->actingAs($this->user)
-            ->get(route('email.create'))
+            ->get(route('phone.create'))
             ->assertStatus(501);
     }
 
     public function testStore()
     {
-        // create mock email
-        $email = [
+        // create mock phone
+        $phone = [
             'customer_id' => $this->customer->id,
-            'email' => $this->faker->safeEmail(),
+            'phone_type_id' => $this->phoneType->id,
+            'number' => $this->faker->phoneNumber(),
         ];
 
         // unauthed
-        $response = $this->json('POST', route('email.store'), $email)
+        $response = $this->json('POST', route('phone.store'), $phone)
             ->assertStatus(401);
-        $this->assertDatabaseMissing('emails', $email);
+        $this->assertDatabaseMissing('phones', $phone);
 
         // authed
         $response = $this->actingAs($this->user)
-            ->json('POST', route('email.store'), $email)
+            ->json('POST', route('phone.store'), $phone)
             ->assertStatus(302);
-        $this->assertDatabaseHas('emails', $email);
+        $this->assertDatabaseHas('phones', $phone);
     }
 
     public function testShow()
     {
         // check unauthenticated
-        $this->get(route('email.show', $this->email->id))
+        $this->get(route('phone.show', $this->phone->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
 
         // check authenticated
         $this->actingAs($this->user)
-            ->get(route('email.show', $this->email->id))
+            ->get(route('phone.show', $this->phone->id))
             ->assertStatus(501);
     }
 
     public function testEdit()
     {
         // check unauthenticated
-        $this->get(route('email.edit', $this->email->id))
+        $this->get(route('phone.edit', $this->phone->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
 
         // check authenticated
         $this->actingAs($this->user)
-            ->get(route('email.edit', $this->email->id))
+            ->get(route('phone.edit', $this->phone->id))
             ->assertStatus(501);
     }
 
     public function testUpdate()
     {
         // create mock object
-        $target = Email::factory()->create();
+        $target = Phone::factory()->create();
         $update = [
-            'email' => $this->faker->safeEmail(),
+            'number' => $this->faker->phoneNumber(),
         ];
 
         // unauth redirect to login
-        $this->json('PUT', route('email.update', $target->id), $update)
+        $this->json('PUT', route('phone.update', $target->id), $update)
             ->assertStatus(401);
 
         // authed
         $this->actingAs($this->user)
-            ->json('PUT', route('email.update', $target->id), $update)
+            ->json('PUT', route('phone.update', $target->id), $update)
             ->assertStatus(501);
     }
 
     public function testDestroy()
     {
-        $toDel = Email::factory()->create();
+        $toDel = Phone::factory()->create();
 
         // unauth redirect to login
-        $this->delete(route('email.destroy', $toDel->id))
+        $this->delete(route('phone.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
-        $this->assertDatabaseHas('emails', $toDel->getAttributes());
+        $this->assertDatabaseHas('phones', $toDel->getAttributes());
 
         // authed
         $this->actingAs($this->user)
-            ->delete(route('email.destroy', $toDel->id))
+            ->delete(route('phone.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect(route('customer.show', $toDel->customer->id));
-        $this->assertDatabaseMissing('emails', $toDel->getAttributes());
+        $this->assertDatabaseMissing('phones', $toDel->getAttributes());
     }
 }

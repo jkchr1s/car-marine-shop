@@ -138,6 +138,7 @@ class CustomerTest extends TestCase
         $this->delete(route('customer.destroy', $toDel->id))
             ->assertStatus(302)
             ->assertRedirect('/login');
+        $this->assertDatabaseHas('customers', $toDel->getAttributes());
 
         // authed
         $this->actingAs($this->user)
