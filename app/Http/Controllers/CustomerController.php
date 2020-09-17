@@ -59,7 +59,7 @@ class CustomerController extends Controller
 
         $customer = Customer::create($data);
 
-        return redirect(route('customer.show', $data['customer_id']));
+        return redirect(route('customer.show', $customer->id));
     }
 
     /**
