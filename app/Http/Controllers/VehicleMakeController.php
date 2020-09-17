@@ -118,14 +118,17 @@ class VehicleMakeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $item = VehicleMake::find($id);
         $result = $item->delete();
 
-        return response(['deleted' => $result]);
+        return $request->ajax()
+            ? response(['deleted' => $result])
+            : redirect(route('vehicle_make.index'));
     }
 }
