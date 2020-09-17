@@ -36,6 +36,7 @@ Based on the conversation we had, I am pretending that this abandoned project of
     10. [Add tests for Customer](https://github.com/jkchr1s/car-marine-shop/pull/37)
     11. [Add tests for Email](https://github.com/jkchr1s/car-marine-shop/pull/38)
     12. [Add tests for Location](https://github.com/jkchr1s/car-marine-shop/pull/39)
+    13. [Add tests for Phone](https://github.com/jkchr1s/car-marine-shop/pull/40)
 5. To-do:
     1. Unit tests
     2. Integration tests
