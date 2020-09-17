@@ -33,6 +33,7 @@ Based on the conversation we had, I am pretending that this abandoned project of
     7. [Implement middleware to track requests and response times](https://github.com/jkchr1s/car-marine-shop/commit/d561bc0abca042664da12ccc49adf2044d7683bd) to assist with catching issues with slow responses -- useful for telemetry, bug tracking/referring to logs, and trending times to detect issues
     8. Documentation
     9. Docker demo
+    10. [Add tests for Customer](https://github.com/jkchr1s/car-marine-shop/pull/37)
 5. To-do:
     1. Unit tests
     2. Integration tests
@@ -67,6 +68,7 @@ To build the project, you will need:
 - [Composer](https://getcomposer.org/) to install PHP dependencies
 - [Node 12 with npm](https://nodejs.org/en/) to build and transpile JavaScript and CSS
 - A [database supported by Laravel 8.0](https://laravel.com/docs/8.x/database#introduction)
+- PDO-sqlite driver (for tests or local development)
 
 
 ### Installing Dependencies
@@ -127,6 +129,13 @@ We're almost up and running! Create an initial user so we can log in to the appl
 php artisan user:create
 ```
 (simply answer the questions as prompted)
+
+
+### Running tests
+You can run tests by executing the following command in the project directory:
+```bash
+vendor/bin/phpunit
+```
 
 
 ## Start the application
