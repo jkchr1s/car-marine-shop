@@ -65,6 +65,7 @@ class VehicleMakeController extends Controller
         $data = $request->validate([
             'vehicle_type_id' => ['required', 'integer', 'exists:vehicle_types,id'],
             'make' => ['required', 'string'],
+            'icon' => ['nullable'],
         ]);
         VehicleMake::create($data);
 
@@ -104,14 +105,14 @@ class VehicleMakeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (! $request->has('make')) {
-            return response(['error' => 'No make specified']);
-        }
-        $item = VehicleMake::find($id);
-        $item->type = $request->input('make');
-        $result = $item->save();
+        $data = $request->validate([
+            'make' => ['required', 'string'],
+        ]);
+        $result = VehicleMake::where('id', $id)->update($data);
 
-        return response(['modified' => $result]);
+        return $request->ajax()
+            ? response(['modified' => $result])
+            : redirect(route('vehicle_make.index'));
     }
 
     /**
